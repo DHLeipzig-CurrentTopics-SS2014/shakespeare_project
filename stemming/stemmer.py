@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #!/usr/env/python3
 
 from stemming_lib.stemming.porter2 import stem as porter2
@@ -26,10 +25,3 @@ for word in xml.xpath("//w"):
     word.set("stemmed_paicehusk",stem_word_paicehusk(w))
 
 xml.write("output.xml")
-=======
-from stemming_lib.stemming.porter2 import stem
-
-print(stem("factionally"))
-
-
->>>>>>> da9f523e01ba6c08d0f4a88dda86119d81aff64b
