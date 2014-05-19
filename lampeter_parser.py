@@ -15,3 +15,9 @@ def find_date(content):
 def find_text(content):
 	pattern = re.compile('(<body>)(.*)(</body>)', re.IGNORECASE | re.DOTALL)
 	return pattern.search(content).groups()[1]
+
+# Text ist im <TEXT> tag enthalten
+# bereinigen von tags und entities (&rehy;, <RO>, <P>, <NOTE>, jede menge anderes)
+# danach alle satzzeichen und zahlen entfernen
+# split
+# durchzählen und wörter mit nummern schreiben
