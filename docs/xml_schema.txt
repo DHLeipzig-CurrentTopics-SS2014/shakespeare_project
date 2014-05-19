@@ -1,0 +1,11 @@
+einheitliches schema für Texte:
+
+<xml>
+   <author>...</author>
+   <year>...</year>
+   <title>...</title>
+   <text>
+      <w>...</w>
+      ...
+   </text>
+</xml>
