@@ -1,0 +1,60 @@
+How to organize your presentations
+
+I.	Introduction
+	A.	Introduce us to your corpus
+		1.	What information does it contain?
+			- Shakespeare Wörter: Wort, Vorkommen, Jahr
+                        - Vergleichstexte: eigentlicher Text, Jahr, Autor, Title, Herkunft Autor 
+		3.	How large is it?
+                        - Shakespeare Wörter: exakt 1582
+                        - Vergleichstexte: kA
+		4.	How accessible is it?  E.g., is it open-access/source?
+                        - Shakespeare Wörter: OED (nicht frei)
+                        - Vergleichstexte: kA
+	B.	Introduce us to your questions
+		1.	What questions are you asking?
+                        - Welchen Einfluss haben Shakespeare erfundene Wörter auf spätere Literatur?
+			- Geografische Verbreitung
+                        - ...
+		2.	Why are you asking these questions?
+			a.	Why are they interesting to you?
+			- ...
+			b.	Why should they be of interest to others?
+			- Shakespeare wichtiger Künstler seiner Zeit
+                        - ...
+II.	Your methods - Give us a detailed view of what you are doing
+	A.	What preprocessing of the texts are you doing? Why are you doing these?
+		1.	lemmatizing/stemming?
+		- Stemming für die Wörter aller Texte (pypi stemming)
+		2.	part-of-speech/syntactic analysis?
+		- Nope
+		3.	semantic analysis?
+                - Nope
+		4.	In other words, what type of metadata are you adding to improve your analysis results?
+		- Nope
+	B.	How are you analyzing your texts?
+		1.	What features are you using? E.g., words, ngrams, letter ngrams, collocates, co-occurrence, part-of-speech tags, etc.?
+                - Words
+		2.	What metrics are you using to measure these features?  Why? (Here, you should be able to point to literature that suggests your methods)
+                - ...
+		3.	What algorithms are you using to analyze the features?
+                -  tf-idf matrices
+	C.	Results?
+		1.	Do you have any (preliminary) results?
+		- Noch nicht
+III.	The outlook?
+	A.	What are the next tasks you need to accomplish?
+	- Textcorpus suchen/bauen
+	B.	How much do you expect to have done by the end of the Vorlesungszeit?
+	- Texte, erste Analysen, einfache Visualisierung
+	C.	How much do you expect to have done by the end of the semester?
+        - Zusätzliche Analysen
+	D.	How will you extend your project if you finish early?
+	E.	How will you reduce your project if you cannot accomplish your original goals?
+		1.	Can you choose just a few of the most important goals?
+		2.	Or will you have to come up with brand new goals?
+IV.	Sell us on your project
+	A.	Why should we fund this project further after the end of the Vorlesungszeit?
+		1.	What methodological advances will it make?  I.e., what is new and different about your method described above
+		2.	What does it tell us about human history, human behavior, human society, etc.?
+
