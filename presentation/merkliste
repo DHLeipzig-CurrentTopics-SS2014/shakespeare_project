@@ -1,0 +1,110 @@
+How to organize your presentations
+I.        Introduction
+        A.        Introduce us to your corpus
+                1.        What information does it contain?
+                        - Shakespeare Wörter: Wort, Vorkommen, Jahr
+                        - Vergleichstexte: eigentlicher Text, Jahr, Autor, Title, (Herkunft Autor TODO, vermutlich von Hand)
+                        - 5 Corpora:
+                            * The Lampeter Corpus of Early Modern English Tracts 
+
+                                120 Texte (1 Mio. Wörter)
+
+                                http://www.ota.ahds.ac.uk/desc/3193
+
+                            * CLMET CORPUS: 
+                                The Corpus of Late Modern English Texts
+
+    https://perswww.kuleuven.be/~u0044428/clmet.htm
+
+                                341 Texte ---> Auf der Seite stehen nur 114 aber im Corpus war das 3fache Oo  (bisher 34 Mio. Wörter)
+
+                            *Cen Corpus: 
+
+                                290 Texte
+
+                            * 2468 Corpus:
+                               1824 Texte (270 Tsd. Wörter)
+                               The English language of the north-west in the late Modern English period: a Corpus of late 18c Prose 
+
+                                http://www.ota.ahds.ac.uk/desc/2468
+
+                                1761-90
+
+                                About 300,000 words have been transcribed and corrected
+
+                            * A Corpus of English Dialogues 1560–1760: 
+
+                                182 Texte
+
+                                  1,2 Millionen Wörter
+                2.        How large is it?
+                        - Shakespeare Wörter: exakt 1582 Wörter
+                        - Vergleichstexte: 2757 ( Texte, Dialoge, Briefe) mit insgesamt ein paar Millionen Wörtern
+                3.        How accessible is it?  E.g., is it open-access/source?
+                        - Shakespeare Wörter: OED (nicht frei)
+                        - Vergleichstexte
+                        CLMET CORPUS:  Kontaktiere Henry : http://www.arts.kuleuven.be/ling/fest/members/hendrik-desmet/fest-member-hendrik-desmet
+                        --> Er schickt eine Id und pw das man das ganze runterladen kann (macht er wirklich!)(ehrich ohne mist :D)(fo shizzle)
+                        Lampeter: CC BY-NC-SA 3.0
+        B.        Introduce us to your questions
+                1.        What questions are you asking?
+                        - Wie häufig kam jedes Wort in jedem Jahr vor
+                        - Geografische Verbreitung (Abhänig vom Geburtsort des Autors)
+                        - Ranking, welche Wörter am häufigsten in welchem Jahr vorkam
+                        - Welcher Autor hat am meisten Shakespeare Wörter genutzt (Gesamt und Zeitraum)
+                        - In welchem Buch kommen am meisten Shakespeare Wörter vor (Gesamt und Zeitraum)
+                2.        Why are you asking these questions?
+                        a.        Why are they interesting to you?
+                        - Interesse daran zu versuchen möglichst viele Informationen aus den gesammelten Daten zu erzeugen.
+                        - Ziemlich explorativ, was können wir herausfinden (siehe oben B.1)?
+                        b.        Why should they be of interest to others?
+                        - Shakespeare wichtiger Künstler seiner Zeit
+                        - ...
+II.        Your methods - Give us a detailed view of what you are doing
+        A.        What preprocessing of the texts are you doing? Why are you doing these?
+                1.        lemmatizing/stemming?
+
+             2.         Vereinheitlichung der Textecorpora in ein gemeinsames XML Format --> (Vorstellung des Formates)
+
+                - Stemming für die Wörter aller Texte (pypi stemming)
+                2.        part-of-speech/syntactic analysis?
+                - Nope
+                3.        semantic analysis?
+                - Nope
+                4.        In other words, what type of metadata are you adding to improve your analysis results?
+
+    - Autor
+
+    - Jahr
+
+        B.        How are you analyzing your texts?
+                1.        What features are you using? E.g., words, ngrams, letter ngrams, collocates, co-occurrence, part-of-speech tags, etc.?
+
+                   - bis jetzt nur Wörter, Co-occurences Wäre noch interresant --> Welche Wörter stehen in der Nähe von Shakespear Wörtern :D
+
+                2.        What metrics are you using to measure these features?  Why? (Here, you should be able to point to literature that suggests your methods)
+
+    - Metrics wäre praktisch für den Fall: Texte mit nen hohen Shakespeare-Anteil vergleich mit anderen Texten mit weniger Anteil (Dennoch gleich????)
+
+    * können wir probieren, aber ich glaube nicht, dass wir da sinnvolle werte bekommen werden. die wörter sind bestimmt zu selten
+
+                3.        What algorithms are you using to analyze the features?
+                -  tf-idf matrices
+        C.        Results?
+                1.        Do you have any (preliminary) results?
+III.        The outlook?
+        A.        What are the next tasks you need to accomplish?
+        - tf-idf matrices erstellen, Vergleiche auf den Texten mit den Shakespearewörtern fahren lassen
+        B.        How much do you expect to have done by the end of the Vorlesungszeit?
+        - Zumindest ein Ergebnis in einer Textuellen Form. Graphisch wahrscheinlich eher weniger VLT hübsche Diagramme 
+        C.        How much do you expect to have done by the end of the semester?
+        - Zusätzliche Analysen
+        D.        How will you extend your project if you finish early?
+        E.        How will you reduce your project if you cannot accomplish your original goals?
+                1.        Can you choose just a few of the most important goals?
+                2.        Or will you have to come up with brand new goals?
+IV.        Sell us on your project
+        A.        Why should we fund this project further after the end of the Vorlesungszeit?
+                1.        What methodological advances will it make?  I.e., what is new and different about your method described above
+                2.        What does it tell us about human history, human behavior, human society, etc.?
+
