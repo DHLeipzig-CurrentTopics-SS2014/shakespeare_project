@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import re
 import os
 from lxml import etree
@@ -34,7 +35,7 @@ def clean_from_entities(text):
     return pattern.sub('', text)
 
 def parse_document(filename):
-    doc = open(filename, 'r').read()
+    doc = open(filename, 'r', encoding='iso-8859-15').read()
     result = {}
     result['title'] = find_title(doc)
     result['author'] = find_author(doc)
