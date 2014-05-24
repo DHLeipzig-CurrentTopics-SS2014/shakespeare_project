@@ -61,12 +61,10 @@ def build_xml(doc_dict):
     #    w.text = word
     return xml
 
-import sys
-print(sys.version)
 
 for filename in os.listdir('Input/'):
     xml = build_xml(parse_document(''.join(['Input/', filename])))
     out = open(''.join(['Output/', filename.replace('txt', 'xml')]), 'w', encoding='utf-8')
-    out.write(etree.tostring(xml, encoding=str))
+    out.write(etree.tostring(xml, pretty_print=True, encoding=str))
     print(filename, ' finished')
 

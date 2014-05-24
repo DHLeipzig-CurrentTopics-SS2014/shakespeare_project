@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/python3
+
 import re
 import os
 from lxml import etree
@@ -31,7 +32,7 @@ def clean_from_markup(text):
     return pattern.sub('', text)
 
 def clean_from_entities(text):
-    pattern = re.compile('&[a-zA-Z]{1,5};', re.IGNORECASE)
+    pattern = re.compile('&[a-zA-Z]{1,10};', re.IGNORECASE)
     return pattern.sub('', text)
 
 def parse_document(filename):
@@ -62,21 +63,6 @@ def build_xml(doc_dict):
 for filename in os.listdir('Input/'):
     xml = build_xml(parse_document(''.join(['Input/', filename])))
     out = open(''.join(['Output/', filename.replace('txt', 'xml')]), 'w', encoding='utf-8')
-    out.write(str(etree.tostring(xml, pretty_print=True)))
+    out.write(etree.tostring(xml, pretty_print=True, encoding=str))
     print(filename, ' finished')
 
-#<xml>
-#   <author>...</author>
-#   <year>...</year>
-#   <title>...</title>
-#   <text>
-#      <w>...</w>
-#      ...
-#   </text>
-#</xml>
-
-# Text ist im <TEXT> tag enthalten
-# bereinigen von tags und entities (&rehy;, <RO>, <P>, <NOTE>, jede menge anderes)
-# danach alle satzzeichen und zahlen entfernen
-# split
-# durchzählen und wörter mit nummern schreiben
