@@ -1,0 +1,10 @@
+{% if text %}
+    <h3>{{text.title}}</h3>
+    <ul>
+        <li>By: <a href="/authors/{{text.author.id}}/">{{text.author.name}}</a></li>
+        <li>Year: {{text.year}}</li>
+    </ul>
+    <h4>Text</h4>
+    <p>
+    {{text.text}}
+{% endif %}
