@@ -18,7 +18,14 @@ def find_author(content):
 
 def find_date(content):
     pattern = re.compile('(<DATE>)([^<]*)(</DATE>)', re.IGNORECASE)
-    return pattern.search(content).groups()[1]
+    date_content = pattern.search(content).groups()[1]
+    if len(date_content) == 4:
+        return date_content
+    else:
+        pattern = re.compile('[0-9]{4,4}')
+        return pattern.search(date_content).group()
+        
+    
 
 def find_text(content):
     pattern = re.compile('(<body>)(.*)(</body>)', re.IGNORECASE | re.DOTALL)
