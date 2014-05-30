@@ -1,0 +1,13 @@
+{% if corpus %}
+    <h3>{{corpus.name}}</h3>
+    <h4>{{corpus.text_count()}} Texts</h4>
+    {% if text_list %}
+        <ul>
+        {% for text in text_list %}
+            <li><a href="/texts/{{ text.id }}/">{{ text.title }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>no texts available</p>
+    {% endif %}
+{% endif %}

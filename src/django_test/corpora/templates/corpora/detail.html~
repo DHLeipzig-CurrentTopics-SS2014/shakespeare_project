@@ -1,0 +1,17 @@
+{% if author %}
+    <h3>{{author.name}}</h3>
+    <ul>
+        <li>Years alive: {{author.birthyear}}-{{author.deathyear}}</li>
+        <li>Known places: {{author.places}}</li>
+    </ul>
+    <h4>Texts</h4>
+    {% if texts %}
+        <ul>
+        {% for text in texts %}
+            <li><a href="/texts/{{ text.id }}/">{{ text.title }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>no texts available</p>
+    {% endif %}
+{% endif %}
