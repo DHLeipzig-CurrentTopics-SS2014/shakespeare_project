@@ -1,6 +1,14 @@
 from django.db import models
 
-# Create your models here.
+class Corpus(models.Model):
+    name = models.CharField(max_length=200)
+    
+class SearchWord(models.Model):
+    word = models.CharField(max_length=30)
+    stemmed = models.CharField(max_length=30)
+
+    
+
 class Author(models.Model):
     name = models.CharField(max_length=200)
     birthyear = models.IntegerField(null=True)
@@ -15,6 +23,7 @@ class Text(models.Model):
     text = models.TextField()
     title = models.CharField(max_length=40)
     year = models.IntegerField(null=True)
+    corpus = models.ForeignKey(Corpus)
 
     def __str__(self):
         return self.title
@@ -25,3 +34,8 @@ class Text(models.Model):
 
     def clean_from_nonletters(text):
         return re.sub(r'[^a-zA-Z\s]', ' ', text)
+
+class Word(models.Model):
+    word = models.CharField(max_length=30)
+    text = models.ForeignKey(Text)
+    stemmed = models.CharField(max_length=30)

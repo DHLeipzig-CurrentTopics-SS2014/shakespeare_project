@@ -1,6 +1,9 @@
 import os, re
 from corpora.models import Author, Text
 
+
+# als stemmer porter2
+
 class CorpusParser():
 
     def parse_folder(self, foldername):
