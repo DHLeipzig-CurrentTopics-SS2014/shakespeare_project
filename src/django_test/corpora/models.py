@@ -1,13 +1,11 @@
 from django.db import models
 
-class Corpus(models.Model):
-    name = models.CharField(max_length=200)
-    
 class SearchWord(models.Model):
     word = models.CharField(max_length=30)
     stemmed = models.CharField(max_length=30)
 
-    
+class Corpus(models.Model):
+    name = models.CharField(max_length=200)
 
 class Author(models.Model):
     name = models.CharField(max_length=200)
