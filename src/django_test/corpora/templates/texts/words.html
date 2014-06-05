@@ -1,0 +1,13 @@
+{% if words %}
+    <table>
+        <th>Word</th>
+        <th>Stemmed</th>
+    {% for word in words %}
+        <tr>
+            <td>{{word.word}}</td><td>{{word.stemmed}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No words available.</p>
+{% endif %}
