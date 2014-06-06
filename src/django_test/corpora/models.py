@@ -28,10 +28,16 @@ class Text(models.Model):
     def __str__(self):
         return self.title 
 
+    
 class Word(models.Model):
-    text = models.ForeignKey(Text)
     word = models.CharField(max_length=30)
     stemmed = models.CharField(max_length=30)
-    
+    in_text_count = models.ManyToManyField(Text, through='WordInTextCount')
+
     def __str__(self):
         return ' - '.join([self.word, self. stemmed])
+
+class WordInTextCount(models.Model):
+    word = models.ForeignKey(Word)
+    text = models.ForeignKey(Text)
+    count = models.IntegerField(null=False)

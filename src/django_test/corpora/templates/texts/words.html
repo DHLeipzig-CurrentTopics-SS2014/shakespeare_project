@@ -1,10 +1,11 @@
-{% if words %}
+{% if word_text_counts %}
     <table>
         <th>Word</th>
         <th>Stemmed</th>
-    {% for word in words %}
+	<th>Count</th>
+    {% for word in word_text_counts %}
         <tr>
-            <td>{{word.word}}</td><td>{{word.stemmed}}</td>
+            <td>{{word.word.word}}</td><td>{{word.word.stemmed}}</td><td>{{word.count}}</td>
         </tr>
     {% endfor %}
     </table>

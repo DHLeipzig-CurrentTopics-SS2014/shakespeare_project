@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from corpora.models import Author, Text, Word
+from corpora.models import Author, Text, Word, WordInTextCount
 
 from django.http import HttpResponse
 # Create your views here.
@@ -21,5 +21,5 @@ def text_detail(request, text_id):
     return render(request, 'texts/detail.html', {'text': get_object_or_404(Text, pk=text_id)})
 
 def text_words(request, text_id):
-    words = Word.objects.filter(text__id=text_id)
-    return render(request, 'texts/words.html', {'words': words})
+    words = WordInTextCount.objects.filter(text__id=text_id)
+    return render(request, 'texts/words.html', {'word_text_counts': words})
