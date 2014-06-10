@@ -1,0 +1,71 @@
+<form name="compute_form" method="POST" action=''>
+    <table>
+        <tr>
+            <td> <p>Jahr:<p></td>
+            <td> von: <input type="number" name="j_von"> </td>
+            <td> bis: <input type="number" name="j_bis"> </td>
+        </tr>
+
+        <tr>
+            <td> <p>Author: </p></td>
+            <td> 
+                <select name="authors" multiple>
+                    {% for author in author_list %}
+                        <option value='author.name'>{{author.name}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td> <p> Titel enthält </p> </td>
+            <td> <input type="text" name="in_title"> </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <br>
+            </td>
+        </tr>
+
+        <tr>
+            <td> <p> Schritt 2 Files </p> </td>
+        </tr>
+
+        <tr>
+            <td><input type="radio" name="uploadtype" value="saved_wordlist">Gespeicherte Wortliste</td>
+            <td>
+                <select name="wordlist">
+                    <option value="shakespeare">Shakis Words :D</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" selected name="uploadtype" value="uploaded_file">Eigene Wortliste</td>
+            </td>
+            <td>
+                <input type="file" name="upload_file">
+            </td>
+        </tr>
+        
+        <tr>
+            <td> Berechung</td>
+            <td>
+                <select name="function">
+                    <option value="statistical"> statistical computing </option>
+                </select>
+            
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <input type="submit">
+            <td>
+        </tr>
+
+
+
+    </table>
+
+
+</form>
