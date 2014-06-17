@@ -2,9 +2,9 @@
     {% csrf_token %}
     <table>
         <tr>
-            <td> <p>Jahr:<p></td>
-            <td> von: <input type="number" name="j_von"> </td>
-            <td> bis: <input type="number" name="j_bis"> </td>
+            <td> <p>year:<p></td>
+            <td> from: <input type="number" name="y_from"> </td>
+            <td> to: <input type="number" name="y_to"> </td>
         </tr>
 
         <tr>
@@ -18,7 +18,7 @@
             </td>
         </tr>
         <tr>
-            <td> <p> Titel enthält </p> </td>
+            <td> <p> title contains </p> </td>
             <td> <input type="text" name="in_title"> </td>
         </tr>
         
@@ -29,11 +29,11 @@
         </tr>
 
         <tr>
-            <td> <p> Schritt 2 Files </p> </td>
+            <td> <p> step 2 files </p> </td>
         </tr>
 
         <tr>
-            <td><input type="radio" name="uploadtype" value="saved_wordlist">Gespeicherte Wortliste</td>
+            <td><input type="radio" name="uploadtype" value="saved_wordlist">stored word list</td>
             <td>
                 <select name="wordlist">
                     <option value="shakespeare">Shakis Words :D</option>
@@ -42,7 +42,7 @@
         </tr>
         <tr>
             <td>
-                <input type="radio" selected name="uploadtype" value="uploaded_file">Eigene Wortliste</td>
+                <input type="radio" selected name="uploadtype" value="uploaded_file">custom word list</td>
             </td>
             <td>
                 <input type="file" name="upload_file">
@@ -50,7 +50,7 @@
         </tr>
         
         <tr>
-            <td> Berechung</td>
+            <td> calculation</td>
             <td>
                 <select name="function">
                     <option value="statistical"> statistical computing </option>
