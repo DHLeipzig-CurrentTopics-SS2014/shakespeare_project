@@ -1,4 +1,5 @@
-<form name="compute_form" method="POST" action=''>
+<form name="compute_form" method="POST" action='/compute/erg/' enctype="multipart/form-data">
+    {% csrf_token %}
     <table>
         <tr>
             <td> <p>Jahr:<p></td>

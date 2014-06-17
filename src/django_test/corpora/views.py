@@ -30,3 +30,9 @@ def compute_index(request):
     return render(request, 'compute/index.html',{'author_list': authors})
 
 
+
+
+
+
+
+
