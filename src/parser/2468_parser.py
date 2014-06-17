@@ -5,7 +5,7 @@ import re
 # CONVERT ORFORD ANNOTATED FILES TO XML (2468.zip/orford.txt)
 
 def interp(text, author, year, cnt):
-    text = re.sub(r'[%=&\"\'\^\.,\{\}~:£\*\(\)_\-\;\?0-9]+', "", text)
+    text = re.sub(r'[%=&\"\'\^\.,\{\}~:£\*\(\)_\-\;\?0-9<>]+', "", text)
     text = re.sub(r'\s+', " ", text)
     output = "<xml>\n"  # cheap xml generator, sorry, I'm lazy
     output += "  <author>"+author.strip()+"</author>\n"
@@ -14,7 +14,7 @@ def interp(text, author, year, cnt):
     output += "  <text>\n" 
     for w in text.split():
         if w not in ["st", "nd", "rd", "th"]: # no numbers
-            output += "    <w>"+w+"</w>\n"
+            output += w+" "
     output += "  </text>\n"
     output += "</xml>"
     with open("letter"+str(cnt)+".xml", "w") as f:
