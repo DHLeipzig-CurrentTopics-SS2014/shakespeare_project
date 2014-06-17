@@ -32,10 +32,6 @@ def compute_erg(request):
     y_from=request.POST.get("y_from","")
     y_to=request.POST.get("y_to","")
 
-    return render(request, 'compute/compute_erg.html', 
-            {"y_from" : y_from,
-            "y_to" : y_to}
-            )
 
 
 
