@@ -24,12 +24,18 @@ def text_words(request, text_id):
     words = WordInTextCount.objects.filter(text__id=text_id)
     return render(request, 'texts/words.html', {'word_text_counts': words})
 
-
 def compute_index(request):
     authors = Author.objects.all().order_by('name')
     return render(request, 'compute/index.html',{'author_list': authors})
 
+def compute_erg(request):
+    y_from=request.POST.get("y_from","")
+    y_to=request.POST.get("y_to","")
 
+    return render(request, 'compute/compute_erg.html', 
+            {"y_from" : y_from,
+            "y_to" : y_to}
+            )
 
 
 
