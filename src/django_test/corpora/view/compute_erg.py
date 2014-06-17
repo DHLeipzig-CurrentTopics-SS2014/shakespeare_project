@@ -5,10 +5,12 @@ from django.http import HttpResponse
 # Create your views here.
 
 def compute_erg(request):
-    j_von=request.POST.get("j_von","")
-    j_bis=request.POST.get("j_bis","")
+    y_from=request.POST.get("y_from","")
+    y_to=request.POST.get("y_to","")
 
     return render(request, 'compute/compute_erg.html', 
-            {"j_von" : j_von,
-            "j_bis" : j_bis}
+            {"y_from" : y_from,
+            "y_to" : y_to}
             )
+
+
