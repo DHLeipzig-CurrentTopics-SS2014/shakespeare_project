@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^authors/', include('corpora.urls.authors')),
     url(r'^texts/', include('corpora.urls.texts')), 
-    url(r'^compute/erg/','corpora.view.compute_erg.compute_erg'),
+    url(r'^compute/result/','corpora.view.compute_result.compute_result'),
     url(r'^compute/','corpora.views.compute_index')
 
 )
