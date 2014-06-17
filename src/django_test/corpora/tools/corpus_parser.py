@@ -11,13 +11,12 @@ class CorpusParser():
             f = open( path, 'r', encoding='utf-8').read()
             print(filename)
             author = Author.objects.get_or_create(name=find_author(f))[0]
-            build_text(find_title(f), find_text(f), corpus, author, find_year(f))
-            
+            Text.objects.create(title = find_title(f), text = find_text(f), corpus = corpus, author = author, year = find_year(f))
+  
 
-def build_text(title, text, corpus, author, year):
-    the_text = Text.objects.create(title= title, author = author, year = year, text = text, corpus = corpus)
+def fill_text_data(text_obj):
     print('making wordlist')
-    wordlist= make_wordlist(text)
+    wordlist = make_wordlist(text_obj.text)
     counted_words = make_count_wordlist(wordlist)
     # make words in wordlist unique
     wordlist = list(set(wordlist))
@@ -27,7 +26,7 @@ def build_text(title, text, corpus, author, year):
     # now wordlist only contains words not known in db
     new_words = map(create_word_object, wordlist)
     Word.objects.bulk_create(list(new_words))
-    word_in_text_counts = map(create_word_in_text_count_object, counted_words.keys(), counted_words.values(), [the_text]*len(counted_words))
+    word_in_text_counts = map(create_word_in_text_count_object, counted_words.keys(), counted_words.values(), [text_obj]*len(counted_words))
     WordInTextCount.objects.bulk_create(word_in_text_counts)
 
 def create_word_object(word_str):

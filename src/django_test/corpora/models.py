@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class SearchWord(models.Model):
     word = models.CharField(max_length=30)
@@ -41,3 +43,13 @@ class WordInTextCount(models.Model):
     word = models.ForeignKey(Word)
     text = models.ForeignKey(Text)
     count = models.IntegerField(null=False)
+        
+from corpora.tools import corpus_parser
+@receiver(post_save, sender=Text)
+def on_create(sender, instance, created, **kwargs):
+    if not created:
+        print("weird, the text was not created")
+        return
+    print("text created, filling word data")
+    corpus_parser.fill_text_data(instance)
+    print("word data finished")
