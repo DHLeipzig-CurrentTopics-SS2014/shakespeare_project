@@ -112,8 +112,7 @@ def compute_result(request):
     x = []
     y = []
     for period in result:
-        print(period)
-        x.append(str(period[0])) #todo
+        x.append(str((period[1]-period[0])/2))
         y.append(str(result[period]))
 
 
