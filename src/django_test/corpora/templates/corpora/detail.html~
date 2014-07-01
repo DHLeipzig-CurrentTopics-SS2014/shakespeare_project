@@ -1,13 +1,11 @@
-{% if author %}
-    <h3>{{author.name}}</h3>
-    <ul>
-        <li>Years alive: {{author.birthyear}}-{{author.deathyear}}</li>
-        <li>Known places: {{author.places}}</li>
-    </ul>
-    <h4>Texts</h4>
-    {% if texts %}
+{% extends "base.html" %}
+{% block title %}{{corpus.name}}{% endblock %}
+{% block content %}
+{% if corpus %}
+ 
+    {% if text_list %}
         <ul>
-        {% for text in texts %}
+        {% for text in text_list %}
             <li><a href="/texts/{{ text.id }}/">{{ text.title }}</a></li>
         {% endfor %}
         </ul>
@@ -15,3 +13,4 @@
         <p>no texts available</p>
     {% endif %}
 {% endif %}
+{% endblock %}

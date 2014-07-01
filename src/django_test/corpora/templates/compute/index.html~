@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block title %}Settings for Computation{% endblock %}
-{% block headline %}Settings for Computation{% endblock %}
 {% block content %}
 <form name="compute_form" method="POST" action='/compute/result/' enctype="multipart/form-data">
     {% csrf_token %}

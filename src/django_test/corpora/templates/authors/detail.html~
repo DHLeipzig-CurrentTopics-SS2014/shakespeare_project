@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block title %}{{author.name}}{% endblock %}
-{% block headline %}{{author.name}}{% endblock %}
 {% block content %}
 {% if author %}
     <ul>

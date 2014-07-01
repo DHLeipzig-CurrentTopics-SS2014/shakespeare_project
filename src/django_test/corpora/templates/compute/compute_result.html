@@ -1,6 +1,7 @@
-
-<h1> Results </h1>
-
+{% extends "base.html" %}
+{% block title %}Results{% endblock %}
+{% block headline %}Results{% endblock %}
+{% block content %}
 
 {% if text_list %}
     <ul>
@@ -11,3 +12,4 @@
 {% else %}
     <p>No texts available.</p>
 {% endif %}
+{% endblock %}
