@@ -71,10 +71,16 @@ def find_author(content):
        return result.groups()[1]
 
 def find_title(content):
-    return find_tag_content('title', content)
+    title = find_tag_content('title', content) 
+    if not title:
+        title = 'UNKNOWN'
+    return title
 
 def find_year(content):
-    return find_tag_content('year', content)
+    year = find_tag_content('year', content)
+    if not year:
+        year = '0';
+    return year
 
 def find_tag_content(tag, xmltext):
     pattern = re.compile('(<{0}>)([^<]*)(</{0}>)'.format(tag), re.IGNORECASE)
