@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block title %}Words in the Text{% endblock %}
-{% block headline %}Words in the Text{% endblock %}
 {% block content %}
 {% if word_text_counts %}
     <table>

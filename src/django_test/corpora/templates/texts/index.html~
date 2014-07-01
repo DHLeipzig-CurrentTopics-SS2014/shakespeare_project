@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block title %}Texts{% endblock %}
-{% block headline %}Texts{% endblock %}
 {% block content %}
 {% if text_list %}
     <ul>
