@@ -7,11 +7,15 @@ class CorpusParser():
     def parse_folder(self, foldername, corpus_name):
         corpus = Corpus.objects.get_or_create(name=corpus_name)[0]
         for filename in os.listdir(foldername):
-            path = '/'.join([foldername, filename])
-            f = open( path, 'r', encoding='utf-8').read()
-            print(filename)
-            author = Author.objects.get_or_create(name=find_author(f))[0]
-            Text.objects.create(title = find_title(f), text = find_text(f), corpus = corpus, author = author, year = find_year(f))
+            try:
+                path = '/'.join([foldername, filename])
+                f = open( path, 'r', encoding='utf-8').read()
+                print(filename)
+                author = Author.objects.get_or_create(name=find_author(f))[0]
+                Text.objects.create(title = find_title(f), text = find_text(f), corpus = corpus, author = author, year = find_year(f))
+            except:
+                print("failed")
+                pass
   
 
 def fill_text_data(text_obj):

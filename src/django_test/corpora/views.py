@@ -78,6 +78,8 @@ def compute_result(request):
 
     return render(request, 'compute/compute_result.html', 
             {
-            'text_list': ""
+            'text_list': "",
+            'x': "[ 1, 2, 3 ]",
+            'y': "[ 4, 2, 5 ]"
             }
             )
