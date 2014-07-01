@@ -1,0 +1,13 @@
+
+<h1> Results </h1>
+
+
+{% if text_list %}
+    <ul>
+    {% for text in text_list %}
+        <li><a href="/texts/{{ text.id }}/">{{ text.title }}</a> by <a href="/authors/{{text.author.id}}/">{{ text.author.name}}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No texts available.</p>
+{% endif %}

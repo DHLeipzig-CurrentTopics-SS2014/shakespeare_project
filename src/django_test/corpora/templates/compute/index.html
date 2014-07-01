@@ -1,4 +1,4 @@
-<form name="compute_form" method="POST" action='/compute/erg/' enctype="multipart/form-data">
+<form name="compute_form" method="POST" action='/compute/result/' enctype="multipart/form-data">
     {% csrf_token %}
     <table>
         <tr>
@@ -12,7 +12,7 @@
             <td> 
                 <select name="authors" multiple>
                     {% for author in author_list %}
-                        <option value='author.name'>{{author.name}}</option>
+                        <option value='{{author.name}}'>{{author.name}}</option>
                     {% endfor %}
                 </select>
             </td>
