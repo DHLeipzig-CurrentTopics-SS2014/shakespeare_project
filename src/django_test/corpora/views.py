@@ -110,10 +110,24 @@ def compute_result(request):
         result[y_interval] = (result[y_interval] + word_df)[words].fillna(0)
         result[y_interval] = result[y_interval].mean()
 
+    #for a,b in result[0].iteritems():
+    #    print(a, b)
+    x = []
+    y = []
+    for period in result:
+        x.append(period)
+        t = 0
+        for i, v in result[period].iteritems():
+            t += v
+        y.append(t)
+    #x = '[' + ','.join(x) + ']'
+    #y = '[' + ','.join(y) + ']'
+    print(x)
+
     return render(request, 'compute/compute_result.html', 
             {
             'text_list': "",
-            'x': "[ 1, 2, 3 ]",
-            'y': "[ 4, 2, 5 ]"
+            'x': x,
+            'y': y
             }
             )
