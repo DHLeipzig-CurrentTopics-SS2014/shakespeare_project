@@ -1,1 +1,31 @@
-<h1> Results </h1>
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Results{% endblock %}
+{% block headline %}Results{% endblock %}
+{% block content %}
+
+{% if text_list %}
+    <ul>
+    {% for text in text_list %}
+        <li><a href="/texts/{{ text.id }}/">{{ text.title }}</a> by <a href="/authors/{{text.author.id}}/">{{ text.author.name}}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No texts available.</p>
+{% endif %}
+<h2> Diagram </h2>
+<div id="canvas"></div>
+<script src="{% static 'raphael-min.js' %}"></script>
+<script src="{% static 'g.raphael-min.js' %}"></script>
+<script src="{% static 'g.line-min.js' %}"></script>
+<script>
+    window.onload = function () {
+    var r = Raphael("canvas",640,480),
+    txtattr = { font: "12px sans-serif" };
+
+    var x = {{ x }}, y = {{ y }};
+
+    r.linechart(10, 10, 620, 460, x, y, { nostroke: false, axis: "0 0 1 1", symbol: "circle", smooth: true });
+    };
+</script>
+{% endblock %}

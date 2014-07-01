@@ -1,9 +1,13 @@
-{% if author_list %}
+{% extends "base.html" %}
+{% block title %}Corpora{% endblock %}
+{% block content %}
+{% if corpora %}
     <ul>
-    {% for author in author_list %}
-        <li><a href="/authors/{{ author.id }}/">{{ author.name }}</a></li>
+    {% for corpus in corpora %}
+        <li><a href="/corpora/{{ corpus.id }}/">{{ corpus.name }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
-    <p>No authors are available.</p>
+    <p>No corpora are available.</p>
 {% endif %}
+{% endblock %}

@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block title %}Settings for Computation{% endblock %}
-{% block headline %}Settings for Computation{% endblock %}
 {% block content %}
 <form name="compute_form" method="POST" action='/compute/result/' enctype="multipart/form-data">
     {% csrf_token %}
@@ -40,15 +39,13 @@
             <td><input type="radio" name="uploadtype" value="saved_wordlist">stored word list</td>
             <td>
                 <select name="wordlist">
-                    {% for text in textcoll %}
-                    <option value="{{text}}">{{text}}</option>
-                    {% endfor%}
+                    <option value="shakespeare">Shakis Words :D</option>
                 </select>
             </td>
         </tr>
         <tr>
             <td>
-                <input type="radio" name="uploadtype" value="uploaded_file">custom word list</td>
+                <input type="radio" selected name="uploadtype" value="uploaded_file">custom word list</td>
             </td>
             <td>
                 <input type="file" name="upload_file">
@@ -59,7 +56,7 @@
             <td> calculation</td>
             <td>
                 <select name="function">
-                    <option value="tfidf"> Tfidf </option>
+                    <option value="statistical"> statistical computing </option>
                 </select>
             
             </td>
