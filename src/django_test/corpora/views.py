@@ -92,8 +92,7 @@ def tfidf(texts_df):
 def compute_result(request):
 
     # dict with possible calculations
-    calc_options = {'tfidf':tfidf,
-                    'statistical':tfidf}
+    calc_options = {'tfidf':tfidf}
 
     texts_dict = textfinder(request)
     text_dfs = textsToDataFrames(texts_dict)
@@ -108,8 +107,7 @@ def compute_result(request):
     word_df = pd.DataFrame(columns = words)
     for y_interval in result.keys():
         result[y_interval] = (result[y_interval] + word_df)[words].fillna(0)
-        result[y_interval] = result[y_interval].mean()
-
+        result[y_interval] = result[y_interval].mean().sum(axis = 1)
     return render(request, 'compute/compute_result.html', 
             {
             'text_list': "",
