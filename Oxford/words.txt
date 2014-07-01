@@ -351,7 +351,7 @@ dawn
 dawning
 day-bed
 day's-work
-dead man's finger(s
+dead man's fingers
 deafening
 death's face
 deceptious
@@ -930,7 +930,6 @@ pander
 pannell
 parkward
 parling
-parti-, http://www.oed.com/view/Entry/138225?rskey=4G4HkQ&result=933&isAdvanced=true#[<div class="quotation" id="eid31565045"><span class="noIndent" id="eid227823667"><span>1598&#160;&#160;</span>  <span class="smallCaps">Shakespeare</span> <em><a class="sourcePopup" onclick="viewSourcePopup(this);" href="javascript:void(0)" rel="0000139">Love's Labour's Lost</a></em>  <span class="smallCaps">v.</span> ii. 758</span>&#160;&#160;
 partner
 pash
 passado
@@ -1052,7 +1051,6 @@ rubious
 rug-headed
 rumourer
 runnion
-s', http://www.oed.com/view/Entry/169280?rskey=x7wROL&result=1055&isAdvanced=true#[<div class="quotation" id="eid24573824"><span class="noIndent" id="eid167737318"><span><i>a</i>1616&#160;&#160;</span>  <span class="smallCaps">Shakespeare</span> <em><a class="sourcePopup" onclick="viewSourcePopup(this);" href="javascript:void(0)" rel="0000158">Coriolanus</a></em> 
 sacked
 sacrificial
 salt rheum
