@@ -5,6 +5,11 @@ import math
 from sklearn.feature_extraction.text import TfidfTransformer
 from django.http import HttpResponse
 import numpy as np
+
+# Folderview import by @Thomas Döring
+from os import listdir
+from os.path import isfile,join,exists
+
 # Create your views here.
 
 def author_index(request):
@@ -28,8 +33,15 @@ def text_words(request, text_id):
     return render(request, 'texts/words.html', {'word_text_counts': words})
 
 def compute_index(request):
+    # Authors
     authors = Author.objects.all().order_by('name')
-    return render(request, 'compute/index.html',{'author_list': authors})
+    
+    #next Get all Files: vom Textcollection ordner
+    
+    path="corpora/textcollections/"
+    files = [f for f in listdir(path) if isfile(join(path,f))]
+
+    return render(request, 'compute/index.html',{'author_list': authors,'textcoll':files})
 
 # auxilary function for compute_result
 def textfinder(request):

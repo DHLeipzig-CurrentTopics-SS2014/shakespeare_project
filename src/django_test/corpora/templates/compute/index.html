@@ -40,13 +40,15 @@
             <td><input type="radio" name="uploadtype" value="saved_wordlist">stored word list</td>
             <td>
                 <select name="wordlist">
-                    <option value="shakespeare">Shakis Words :D</option>
+                    {% for text in textcoll %}
+                    <option value="{{text}}">{{text}}</option>
+                    {% endfor%}
                 </select>
             </td>
         </tr>
         <tr>
             <td>
-                <input type="radio" selected name="uploadtype" value="uploaded_file">custom word list</td>
+                <input type="radio" name="uploadtype" value="uploaded_file">custom word list</td>
             </td>
             <td>
                 <input type="file" name="upload_file">
