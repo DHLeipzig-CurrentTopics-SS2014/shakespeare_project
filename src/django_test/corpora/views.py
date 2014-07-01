@@ -1,7 +1,10 @@
+import pandas as pd
 from django.shortcuts import render, get_object_or_404
 from corpora.models import Author, Text, Word, WordInTextCount
-
+import math
+from sklearn.feature_extraction.text import TfidfTransformer
 from django.http import HttpResponse
+import numpy as np
 # Create your views here.
 
 def author_index(request):
@@ -30,31 +33,51 @@ def compute_index(request):
 
 # auxilary function for compute_result
 def textfinder(request):
-    text = Text.objects.all()
-    
-    if(request.POST.get("y_from")!=""):
-        text = text.filter(year__gte=request.POST.get("y_from"))
- 
-    if(request.POST.get("y_to")!=""):
-        text = text.filter(year__lte=request.POST.get("y_to"))
+    Y_INTERVAL = 5
+    texts = Text.objects.all().order_by('year')
 
     if(request.POST.getlist("authors")):
         authors=Author.objects.all().filter(name__in=request.POST.getlist("authors")).values_list('id', flat=True)
-        text = text.filter(author__in=authors)
+        texts = texts.filter(author__in=authors)
 
     if(request.POST.get("in_title")!=""):
-        text=text.filter(title_contains=request.POST.get("in_title"))
+        texts=texts.filter(title_contains=request.POST.get("in_title"))
 
-    return text
+    y_from = request.POST.get("y_from")
+    y_from = texts[0].year if y_from == "" else int(y_from)
+    texts = texts.filter(year__gte = str(y_from))
+    
+    y_to = request.POST.get("y_to")
+    y_to = texts.last().year if y_to == "" else int(y_to) 
+    texts = texts.filter(year__lte=str(y_to))
+
+    text_year_dict = {}
+    y_current = y_from + Y_INTERVAL
+    while (y_current  <= y_to + Y_INTERVAL):
+       text_year_dict[(y_current - Y_INTERVAL, y_current)] = texts.filter(year__gte = y_current - Y_INTERVAL).filter(year__lt = y_current)
+       y_current += Y_INTERVAL
+
+    return text_year_dict
+
+def getTfidfDFs(texts_dict):
+    y_df_dict = {}
+    for y_interval, texts in texts_dict.items():
+       y_texts_dict = {} 
+       for text in texts:
+           word_counts = WordInTextCount.objects.filter(text = text)
+           y_texts_dict[text.title] = {w.word.word : w.count for w in word_counts}
+           text_df = pd.DataFrame(y_texts_dict).fillna(0)
+           tfidf = TfidfTransformer().fit_transform(text_df)
+           tfidf_matrix = pd.DataFrame(data = tfidf.toarray(), index =text_df.index, columns = text_df.columns)
+           y_df_dict[y_interval] = tfidf_matrix
+    return y_df_dict
 
 def compute_result(request):
-    
-    texts = textfinder(request)
+    texts_dict = textfinder(request)
+    tfidf_dfs = getTfidfDFs(texts_dict)
+
     return render(request, 'compute/compute_result.html', 
             {
-            'text_list': texts
+            'text_list': ""
             }
             )
-
-
-
