@@ -68,7 +68,10 @@ def find_author(content):
     if result == None:
         return 'unknown'
     else:
-       return result.groups()[1]
+        author = result.groups()[1]
+        author = author.replace('[', '')
+        author = author.replave(']', '')
+        return author
 
 def find_title(content):
     title = find_tag_content('title', content) 

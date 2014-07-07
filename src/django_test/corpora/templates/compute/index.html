@@ -2,38 +2,30 @@
 {% block title %}Settings for Computation{% endblock %}
 {% block headline %}Settings for Computation{% endblock %}
 {% block content %}
-<form name="compute_form" method="POST" action='/compute/result/' enctype="multipart/form-data">
+<form name="compute_form" method="POST" action='/compute/result/' enctype="multipart/form-data" role="form">
     {% csrf_token %}
-    <table>
-        <tr>
-            <td> <p>year:<p></td>
-            <td> from: <input type="number" name="y_from"> </td>
-            <td> to: <input type="number" name="y_to"> </td>
-        </tr>
-
-        <tr>
-            <td> <p>Author: </p></td>
-            <td> 
-                <select name="authors" multiple>
-                    {% for author in author_list %}
-                        <option value='{{author.name}}'>{{author.name}}</option>
-                    {% endfor %}
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td> <p> title contains </p> </td>
-            <td> <input type="text" name="in_title"> </td>
-        </tr>
+    
+    <div class="form-group">
+        <label for="y_from_id">from:</label>
+        <input id ="y_from_id" type="number" name="y_from">
+        <label for="y_to_id">to:</label>
+        <input id="y_to_id" type="number" name="y_to">
+    </div>
+    <div class="form-group">
+        <label for="authors_id">Author:</label>
+        <select id="authors_id" name="authors" multiple>
+            {% for author in author_list %}
+                <option value='{{author.name}}'>{{author.name}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="text_id">title contains</label>
+        <input id="text_id" type="text" name="in_title">
+    </div>
+    <table class="table">
         
-        <tr>
-            <td>
-                <br>
-            </td>
-        </tr>
-
-        <tr>
-            <td> <p> step 2 files </p> </td>
+    <h4> step 2 files </h4>
         </tr>
 
         <tr>

@@ -21,7 +21,6 @@ urlpatterns = patterns('',
     # /texts/3/words
     url(r'^texts/(?P<text_id>\d+)/words/$', views.text_words, name='words'),
     
-    
     # /compute/
     url(r'^compute/$', views.compute_index, name='index'),
     # /compute/result

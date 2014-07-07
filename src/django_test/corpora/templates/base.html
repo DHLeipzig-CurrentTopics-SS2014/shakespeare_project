@@ -3,9 +3,29 @@
 <html>
 <head>
     <title>{% block title %}{% endblock %}</title>
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet"> 
 </head>
 <body>
-    <h3>{% block headline %}{% endblock %}</h3>
-    {% block content %}{% endblock %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-pills">
+              <li><a href="/texts">Texts</a></li>
+              <li><a href="/authors">Authors</a></li>
+              <li><a href="/compute">Compute</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+        <h3>{% block headline %}{% endblock %}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+        {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
 </body>
 </html>
