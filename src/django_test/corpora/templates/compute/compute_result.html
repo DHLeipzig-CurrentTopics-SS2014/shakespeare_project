@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% block title %}Results{% endblock %}
 {% block headline %}Results{% endblock %}
 {% block content %}
@@ -12,4 +13,19 @@
 {% else %}
     <p>No texts available.</p>
 {% endif %}
+<h2> Diagram </h2>
+<div id="canvas"></div>
+<script src="{% static 'raphael-min.js' %}"></script>
+<script src="{% static 'g.raphael-min.js' %}"></script>
+<script src="{% static 'g.line-min.js' %}"></script>
+<script>
+    window.onload = function () {
+    var r = Raphael("canvas",640,480),
+    txtattr = { font: "12px sans-serif" };
+
+    var x = {{ x }}, y = {{ y }};
+
+    r.linechart(10, 10, 620, 460, x, y, { nostroke: false, axis: "0 0 1 1", symbol: "circle", smooth: true });
+    };
+</script>
 {% endblock %}

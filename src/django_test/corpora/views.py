@@ -71,7 +71,7 @@ def textfinder(request):
 
     return text_year_dict
 
-def getTfidfDFs(texts_dict):
+def textsToDataFrames(texts_dict):
     y_df_dict = {}
     for y_interval, texts in texts_dict.items():
        y_texts_dict = {} 
@@ -79,17 +79,50 @@ def getTfidfDFs(texts_dict):
            word_counts = WordInTextCount.objects.filter(text = text)
            y_texts_dict[text.title] = {w.word.word : w.count for w in word_counts}
            text_df = pd.DataFrame(y_texts_dict).fillna(0)
-           tfidf = TfidfTransformer().fit_transform(text_df)
-           tfidf_matrix = pd.DataFrame(data = tfidf.toarray(), index =text_df.index, columns = text_df.columns)
-           y_df_dict[y_interval] = tfidf_matrix
+           
+           y_df_dict[y_interval] = text_df
     return y_df_dict
 
-def compute_result(request):
-    texts_dict = textfinder(request)
-    tfidf_dfs = getTfidfDFs(texts_dict)
+def tfidf(texts_df):
+    result = {}
+    for y_interval, text_df in texts_df.items():
+        result[y_interval] = pd.DataFrame(data = TfidfTransformer().fit_transform(text_df).toarray(), index =text_df.index, columns = text_df.columns)
+    return result
 
+def compute_result(request):
+
+    # dict with possible calculations
+    calc_options = {'tfidf':tfidf}
+
+    texts_dict = textfinder(request)
+    text_dfs = textsToDataFrames(texts_dict)
+    
+    result = calc_options[request.POST.get('function')](text_dfs)
+    
+    if (request.POST.get('uploadtype') == 'uploaded_file'):
+        words = request.FILES['upload_file'].read().split('\n')
+    else:
+        words = open('corpora/textcollections/' + request.POST.get('wordlist'), 'r').read().split('\n')
+    
+    word_df = pd.DataFrame(columns = words)
+    for y_interval in result.keys():
+        result[y_interval] = (result[y_interval] + word_df)[words].fillna(0)
+        result[y_interval] = result[y_interval].mean().sum(axis = 1)
+
+    x = []
+    y = []
+    for period in result:
+        x.append(str((period[1]-period[0])/2))
+        y.append(str(result[period]))
+
+
+    x = '[' + ','.join(x) + ']'
+    y = '[' + ','.join(y) + ']'
+        
     return render(request, 'compute/compute_result.html', 
             {
-            'text_list': ""
+            'text_list': "",
+            'x': x,
+            'y': y
             }
             )
