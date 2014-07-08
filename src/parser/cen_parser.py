@@ -28,7 +28,7 @@ for index_entry in index:
    xml_string += '   <text>\n'
 
    for word in text.split():
-      xml_string += '      <w>' + word.lower() + '</w>\n'
+      xml_string +=  word.lower() + ' '
 
    xml_string += '   </text>\n'
    xml_string += '</xml>\n'
