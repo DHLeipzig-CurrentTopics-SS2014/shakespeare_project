@@ -101,19 +101,25 @@ def compute_result(request):
     result = calc_options[request.POST.get('function')](text_dfs)
     
     if (request.POST.get('uploadtype') == 'uploaded_file'):
-        words = request.FILES['upload_file'].read().split('\n')
+        words = request.FILES['upload_file'].read().decode("utf-8").split('\n')
     else:
         words = open('corpora/textcollections/' + request.POST.get('wordlist'), 'r').read().split('\n')
     
-    word_df = pd.DataFrame(columns = words)
+    #word_df = pd.DataFrame(index = words, columns = result.keys())
+    #äprint(word_df)
+    #print(result)
+    
     for y_interval in result.keys():
-        result[y_interval] = (result[y_interval] + word_df)[words].fillna(0)
+        word_df = pd.DataFrame(index = words, columns = result[y_interval].keys()).fillna(0)
+        #result[y_interval] = (result[y_interval] + word_df)[words].fillna(0)
+        result[y_interval] = pd.merge(result[y_interval], word_df, left_index=True, right_index=True)
         result[y_interval] = result[y_interval].mean().sum(axis = 1)
 
     x = []
-    y = []
-    for period in result:
-        x.append(str((period[1]-period[0])/2))
+    y = []    
+    for period in sorted(result.keys()):
+        #x.append(str((period[1]-period[0])/2))
+        x.append(str(period[0]+(period[1]-period[0])/2))
         y.append(str(result[period]))
 
 
