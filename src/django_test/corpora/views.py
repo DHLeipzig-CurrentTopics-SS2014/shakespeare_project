@@ -1,10 +1,11 @@
 import pandas as pd
 from django.shortcuts import render, get_object_or_404
-from corpora.models import Author, Text, Word, WordInTextCount
+from corpora.models import Author, Text, Word, WordInTextCount, Corpus
 import math
 from sklearn.feature_extraction.text import TfidfTransformer
 from django.http import HttpResponse
 import numpy as np
+from corpora.tools.corpus_parser import CorpusParser
 
 # Folderview import by @Thomas Döring
 from os import listdir
@@ -126,3 +127,20 @@ def compute_result(request):
             'y': y
             }
             )
+
+
+def get_count_of_stem(stem):
+    WordInTextCount.objects.filter(word__stemmed = stem)
+    # TODO weitermachen...
+
+
+
+def corpora_index(request):
+    corpora = Corpus.objects.all()
+    return render(request, 'corpora/index.html', {'corpora': corpora})
+
+def corpora_upload(request):
+    cp = CorpusParser()
+    print(request.POST)
+    cp.parse_files(request.FILES, request.POST.get("corpus_name"))
+    return render(request, 'corpora/index.html')
