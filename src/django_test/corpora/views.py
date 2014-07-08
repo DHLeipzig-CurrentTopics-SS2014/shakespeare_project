@@ -89,10 +89,13 @@ def tfidf(texts_df):
         result[y_interval] = pd.DataFrame(data = TfidfTransformer().fit_transform(text_df).toarray(), index =text_df.index, columns = text_df.columns)
     return result
 
+def id_function(texts_df):
+   return texts_df
 def compute_result(request):
 
     # dict with possible calculations
-    calc_options = {'tfidf':tfidf}
+    calc_options = {'tfidf':tfidf,
+                    'id':id_function}
 
     texts_dict = textfinder(request)
     text_dfs = textsToDataFrames(texts_dict)
@@ -104,20 +107,14 @@ def compute_result(request):
     else:
         words = open('corpora/textcollections/' + request.POST.get('wordlist'), 'r').read().split('\n')
     
-    #word_df = pd.DataFrame(index = words, columns = result.keys())
-    #äprint(word_df)
-    #print(result)
-    
     for y_interval in result.keys():
         word_df = pd.DataFrame(index = words, columns = result[y_interval].keys()).fillna(0)
-        #result[y_interval] = (result[y_interval] + word_df)[words].fillna(0)
         result[y_interval] = pd.merge(result[y_interval], word_df, left_index=True, right_index=True)
-        result[y_interval] = result[y_interval].mean().sum(axis = 1)
+        result[y_interval] = result[y_interval].mean().mean(axis = 1)
 
     x = []
     y = []    
     for period in sorted(result.keys()):
-        #x.append(str((period[1]-period[0])/2))
         x.append(str(period[0]+(period[1]-period[0])/2))
         y.append(str(result[period]))
 
