@@ -24,12 +24,12 @@
         <input id="text_id" type="text" name="in_title">
     </div>
     <table class="table">
-        
+        <tr> <td>
     <h4> step 2 files </h4>
-        </tr>
-
+</td>
+    </tr>
         <tr>
-            <td><input type="radio" name="uploadtype" value="saved_wordlist">stored word list</td>
+            <td><input type="radio" name="uploadtype" value="saved_wordlist" checked>stored word list</td>
             <td>
                 <select name="wordlist">
                     {% for text in textcoll %}
@@ -46,9 +46,13 @@
                 <input type="file" name="upload_file">
             </td>
         </tr>
+
         
         <tr>
-            <td> calculation</td>
+            <td><h4> Step 3: calculation<h4></td>
+        </tr>
+        <tr>
+            <td>Calculationrule:</td>
             <td>
                 <select name="function">
                     <option value="tfidf"> Tfidf </option>
