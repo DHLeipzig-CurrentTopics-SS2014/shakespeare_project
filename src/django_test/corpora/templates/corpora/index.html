@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Manage Corpora{% endblock %}
+{% block headline %}Manage Corpora{% endblock %}
+{% block content %}
+
+<div class="row">
+  <div class="col-md-12">
+    <h4>Upload new Corpus</h4>
+    <form name="upload_corpus" method="POST" action='/corpora/upload/' enctype="multipart/form-data" role="form">
+      {% csrf_token %}
+    
+      <div class="form-group">
+        <label for="select_path_id">Select Path</label>
+        <input id="select_path_id" type="file" webkitdirectory directory multiple name="y_from">
+      </div>
+      <div class="form-group">
+	<label for="input_name_id">Corpus Name:</label>
+	<input id="input_name_id" type="text" name="corpus_name"/>
+      </div>
+
+      <div class="form-group">
+	<input type="submit" value="Upload" class="btn btn-default"/>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h4>Known Corpora</h4>
+    {% if corpora %}
+    <ul>
+    {% for corpus in corpora %}
+        <li>{{ corpus.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No corpora available.</p>
+{% endif %}
+  </div>
+</div>
+
+{% endblock %}

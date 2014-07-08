@@ -3,7 +3,19 @@ from corpora.models import Author, Text, Corpus, Word, WordInTextCount
 from libs.stemming_lib.stemming.porter2 import stem as porter2
 
 class CorpusParser():
-
+    def parse_files(self, files, corpus_name):
+        print(corpus_name)
+        corpus = Corpus.objects.get_or_create(name=corpus_name)[0]
+        for file in files:
+            try:
+                f = file.read()
+                author = Author.objects.get_or_create(name=find_author(f))[0]
+                Text.objects.create(title = find_title(f), text = find_text(f), corpus = corpus, author = author, year = find_year(f))
+            except:
+                print("failed")
+                pass
+                
+    
     def parse_folder(self, foldername, corpus_name):
         corpus = Corpus.objects.get_or_create(name=corpus_name)[0]
         for filename in os.listdir(foldername):
