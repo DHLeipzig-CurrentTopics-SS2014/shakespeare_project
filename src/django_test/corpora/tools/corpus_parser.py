@@ -4,7 +4,6 @@ from libs.stemming_lib.stemming.porter2 import stem as porter2
 
 class CorpusParser():
     def parse_files(self, files, corpus_name):
-        print(corpus_name)
         corpus = Corpus.objects.get_or_create(name=corpus_name)[0]
         for file in files:
             try:
