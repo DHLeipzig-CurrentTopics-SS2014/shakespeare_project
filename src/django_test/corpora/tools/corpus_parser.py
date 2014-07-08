@@ -4,13 +4,16 @@ from libs.stemming_lib.stemming.porter2 import stem as porter2
 
 class CorpusParser():
     def parse_files(self, files, corpus_name):
+        print(files)
         corpus = Corpus.objects.get_or_create(name=corpus_name)[0]
-        for file in files:
+        for fil in files:
             try:
-                f = file.read()
+                #print(fil)
+                #import ipdb; ipdb.set_trace()
+                f = fil.read().decode()
                 author = Author.objects.get_or_create(name=find_author(f))[0]
                 Text.objects.create(title = find_title(f), text = find_text(f), corpus = corpus, author = author, year = find_year(f))
-            except:
+            except: 
                 print("failed")
                 pass
                 
@@ -85,7 +88,7 @@ def find_author(content):
     else:
         author = result.groups()[1]
         author = author.replace('[', '')
-        author = author.replave(']', '')
+        author = author.replace(']', '')
         return author
 
 def find_title(content):
