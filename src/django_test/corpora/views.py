@@ -7,6 +7,7 @@ from django.http import HttpResponse
 import numpy as np
 from corpora.tools.corpus_parser import CorpusParser
 
+
 # Folderview import by @Thomas Döring
 from os import listdir
 from os.path import isfile,join,exists
@@ -144,5 +145,5 @@ def corpora_index(request):
 
 def corpora_upload(request):
     cp = CorpusParser()
-    cp.parse_files(request.FILES, request.POST.get("corpus_name"))
+    cp.parse_files(request.FILES.getlist('corpus_files'), request.POST.get("corpus_name"))
     return render(request, 'corpora/index.html')
