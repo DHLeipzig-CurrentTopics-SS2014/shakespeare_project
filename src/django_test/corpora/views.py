@@ -149,4 +149,4 @@ def corpora_index(request):
 def corpora_upload(request):
     cp = CorpusParser()
     cp.parse_files(request.FILES.getlist('corpus_files'), request.POST.get("corpus_name"))
-    return render(request, 'corpora/index.html')
+    return render(request, 'corpora/upload.html')
