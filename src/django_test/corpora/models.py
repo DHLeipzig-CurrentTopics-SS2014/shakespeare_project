@@ -32,7 +32,7 @@ class Text(models.Model):
 
     
 class Word(models.Model):
-    word = models.CharField(max_length=30)
+    word = models.CharField(max_length=30, unique=True)
     stemmed = models.CharField(max_length=30)
     in_text_count = models.ManyToManyField(Text, through='WordInTextCount')
 

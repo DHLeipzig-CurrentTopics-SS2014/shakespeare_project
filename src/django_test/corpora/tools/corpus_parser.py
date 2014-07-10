@@ -30,38 +30,36 @@ class CorpusParser():
             except:
                 print("failed")
                 pass
-  
 
 def fill_text_data(text_obj):
+    print('will_text_data started')
     print('making wordlist')
     wordlist = make_wordlist(text_obj.text)
+    print('counting occurrences')
     counted_words = make_count_wordlist(wordlist)
     # make words in wordlist unique
     wordlist = list(set(wordlist))
-    existing = get_existing_word_objects(wordlist)
-    for word_obj in existing:
-        wordlist.remove(word_obj.word)
+    print('finding existing word objects')
+    existing = set(Word.objects.all().values_list('word', flat=True))
+    print('%s existing words found' % len(existing))
+    print('clearing wordlist')
+    wordlist = list(filter(lambda w: w not in existing, wordlist))
     # now wordlist only contains words not known in db
-    new_words = map(create_word_object, wordlist)
-    Word.objects.bulk_create(list(new_words))
-    word_in_text_counts = map(create_word_in_text_count_object, counted_words.keys(), counted_words.values(), [text_obj]*len(counted_words))
+    print('making %s new word objects' % len(wordlist))
+    new_words = list(map(create_word_object, wordlist))
+    print('bulk saving %s new words to db' % len(new_words))
+    Word.objects.bulk_create(new_words)
+    print('making %s word in text count objects' % len(counted_words))
+    word_in_text_counts = [create_word_in_text_count_object(w, v, text_obj) for w, v in counted_words.items()]
+    print('bulk saving %s word in text count objects' % len(word_in_text_counts))
     WordInTextCount.objects.bulk_create(word_in_text_counts)
+    print('fill_text_data finished')
 
 def create_word_object(word_str):
     return Word(word = word_str, stemmed = stem_word_porter2(word_str))
 
 def create_word_in_text_count_object(word_str, count, text):
-    return WordInTextCount(word=Word.objects.get(word=word_str), text = text, count = count)
-
-def get_existing_word_objects(wordlist):
-    wordlist= wordlist
-    existing = []
-    offset = 0
-    steplength = 50
-    while offset <= len(wordlist):
-        existing.extend(Word.objects.filter(word__in=wordlist[offset:offset+steplength]))
-        offset += steplength
-    return existing
+    return WordInTextCount( text = text, count = count)
     
 def make_count_wordlist(wordlist):
     words = {}
