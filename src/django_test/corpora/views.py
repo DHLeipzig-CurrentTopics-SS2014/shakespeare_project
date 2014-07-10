@@ -118,8 +118,11 @@ def compute_result(request):
     y = []    
     for period in sorted(result.keys()):
         x.append(str(period[0]+(period[1]-period[0])/2))
-        y.append(str(result[period]))
-
+        if not np.isnan(result[period]): 
+            y.append(str(result[period]))
+        else:
+            print("ERROR: NAN VALUES")
+            y.append("0")
 
     x = '[' + ','.join(x) + ']'
     y = '[' + ','.join(y) + ']'
