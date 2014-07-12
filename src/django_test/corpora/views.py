@@ -7,6 +7,7 @@ from django.http import HttpResponse
 import numpy as np
 from corpora.tools.corpus_parser import CorpusParser
 
+
 # Folderview import by @Thomas Döring
 from os import listdir
 from os.path import isfile,join,exists
@@ -77,11 +78,10 @@ def textsToDataFrames(texts_dict):
     for y_interval, texts in texts_dict.items():
        y_texts_dict = {} 
        for text in texts:
-           word_counts = WordInTextCount.objects.filter(text = text)
-           y_texts_dict[text.title] = {w.word.word : w.count for w in word_counts}
-           text_df = pd.DataFrame(y_texts_dict).fillna(0)
-           
-           y_df_dict[y_interval] = text_df
+           word_counts = WordInTextCount.objects.filter(text = text).values_list('word__word', 'count')
+           y_texts_dict[text.title] = { x[0]:x[1] for x in word_counts }
+       text_df = pd.DataFrame(y_texts_dict).fillna(0)
+       y_df_dict[y_interval] = text_df
     return y_df_dict
 
 def tfidf(texts_df):
@@ -92,6 +92,7 @@ def tfidf(texts_df):
 
 def id_function(texts_df):
    return texts_df
+   
 def compute_result(request):
 
     # dict with possible calculations
@@ -117,8 +118,11 @@ def compute_result(request):
     y = []    
     for period in sorted(result.keys()):
         x.append(str(period[0]+(period[1]-period[0])/2))
-        y.append(str(result[period]))
-
+        if not np.isnan(result[period]): 
+            y.append(str(result[period]))
+        else:
+            print("ERROR: NAN VALUES")
+            y.append("0")
 
     x = '[' + ','.join(x) + ']'
     y = '[' + ','.join(y) + ']'
@@ -144,6 +148,5 @@ def corpora_index(request):
 
 def corpora_upload(request):
     cp = CorpusParser()
-    print(request.POST)
-    cp.parse_files(request.FILES, request.POST.get("corpus_name"))
-    return render(request, 'corpora/index.html')
+    cp.parse_files(request.FILES.getlist('corpus_files'), request.POST.get("corpus_name"))
+    return render(request, 'corpora/upload.html')

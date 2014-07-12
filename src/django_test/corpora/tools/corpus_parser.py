@@ -4,16 +4,18 @@ from libs.stemming_lib.stemming.porter2 import stem as porter2
 
 class CorpusParser():
     def parse_files(self, files, corpus_name):
-        print(corpus_name)
+        print(files)
         corpus = Corpus.objects.get_or_create(name=corpus_name)[0]
-        for file in files:
-            try:
-                f = file.read()
-                author = Author.objects.get_or_create(name=find_author(f))[0]
-                Text.objects.create(title = find_title(f), text = find_text(f), corpus = corpus, author = author, year = find_year(f))
-            except:
-                print("failed")
-                pass
+        for fil in files:
+            #try:
+                #print(fil)
+                #import ipdb; ipdb.set_trace()
+            f = fil.read().decode()
+            author = Author.objects.get_or_create(name=find_author(f))[0]
+            Text.objects.create(title = find_title(f), text = find_text(f), corpus = corpus, author = author, year = find_year(f))
+            #except: 
+            #    print("failed")
+            #    pass
                 
     
     def parse_folder(self, foldername, corpus_name):
@@ -28,38 +30,37 @@ class CorpusParser():
             except:
                 print("failed")
                 pass
-  
 
 def fill_text_data(text_obj):
+    print('will_text_data started')
     print('making wordlist')
     wordlist = make_wordlist(text_obj.text)
+    print('counting occurrences')
     counted_words = make_count_wordlist(wordlist)
     # make words in wordlist unique
     wordlist = list(set(wordlist))
-    existing = get_existing_word_objects(wordlist)
-    for word_obj in existing:
-        wordlist.remove(word_obj.word)
+    print('finding existing word objects')
+    existing = set(Word.objects.all().values_list('word', flat=True))
+    print('%s existing words found' % len(existing))
+    print('clearing wordlist')
+    wordlist = list(filter(lambda w: w not in existing, wordlist))
     # now wordlist only contains words not known in db
-    new_words = map(create_word_object, wordlist)
-    Word.objects.bulk_create(list(new_words))
-    word_in_text_counts = map(create_word_in_text_count_object, counted_words.keys(), counted_words.values(), [text_obj]*len(counted_words))
+    print('making %s new word objects' % len(wordlist))
+    new_words = list(map(create_word_object, wordlist))
+    print('bulk saving %s new words to db' % len(new_words))
+    Word.objects.bulk_create(new_words)
+    print('making %s word in text count objects' % len(counted_words))
+    words_dict = { w: i for w, i in Word.objects.all().values_list('word', 'id') }
+    word_in_text_counts = [create_word_in_text_count_object(words_dict[w], v, text_obj) for w, v in counted_words.items()]
+    print('bulk saving %s word in text count objects' % len(word_in_text_counts))
     WordInTextCount.objects.bulk_create(word_in_text_counts)
+    print('fill_text_data finished')
 
 def create_word_object(word_str):
     return Word(word = word_str, stemmed = stem_word_porter2(word_str))
 
-def create_word_in_text_count_object(word_str, count, text):
-    return WordInTextCount(word=Word.objects.get(word=word_str), text = text, count = count)
-
-def get_existing_word_objects(wordlist):
-    wordlist= wordlist
-    existing = []
-    offset = 0
-    steplength = 50
-    while offset <= len(wordlist):
-        existing.extend(Word.objects.filter(word__in=wordlist[offset:offset+steplength]))
-        offset += steplength
-    return existing
+def create_word_in_text_count_object(word, count, text):
+    return WordInTextCount(word_id= word, text = text, count = count)
     
 def make_count_wordlist(wordlist):
     words = {}
@@ -86,7 +87,7 @@ def find_author(content):
     else:
         author = result.groups()[1]
         author = author.replace('[', '')
-        author = author.replave(']', '')
+        author = author.replace(']', '')
         return author
 
 def find_title(content):
@@ -97,9 +98,10 @@ def find_title(content):
 
 def find_year(content):
     year = find_tag_content('year', content)
+    year = re.search(r'[0-9]{4}', year)
     if not year:
         year = '0';
-    return year
+    return year.group()
 
 def find_tag_content(tag, xmltext):
     pattern = re.compile('(<{0}>)([^<]*)(</{0}>)'.format(tag), re.IGNORECASE)
