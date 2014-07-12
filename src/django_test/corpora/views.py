@@ -78,9 +78,7 @@ def textsToDataFrames(texts_dict):
     for y_interval, texts in texts_dict.items():
        y_texts_dict = {} 
        for text in texts:
-           print('getting wordcounts')
            word_counts = WordInTextCount.objects.filter(text = text).values_list('word__word', 'count')
-           print('making dict of text')
            y_texts_dict[text.title] = { x[0]:x[1] for x in word_counts }
        text_df = pd.DataFrame(y_texts_dict).fillna(0)
        y_df_dict[y_interval] = text_df
@@ -101,28 +99,21 @@ def compute_result(request):
     calc_options = {'tfidf':tfidf,
                     'id':id_function}
 
-    print('finding texts')
     texts_dict = textfinder(request)
-    print('found %s texts' % len(texts_dict))
-    print('creating DataFrames')
     text_dfs = textsToDataFrames(texts_dict)
     
-    print('calculating function')
     result = calc_options[request.POST.get('function')](text_dfs)
     
-    print('reading wordlist')
     if (request.POST.get('uploadtype') == 'uploaded_file'):
         words = request.FILES['upload_file'].read().decode("utf-8").split('\n')
     else:
         words = open('corpora/textcollections/' + request.POST.get('wordlist'), 'r').read().split('\n')
     
-    print('summing up')
     for y_interval in result.keys():
         word_df = pd.DataFrame(index = words, columns = result[y_interval].keys()).fillna(0)
         result[y_interval] = pd.merge(result[y_interval], word_df, left_index=True, right_index=True)
         result[y_interval] = result[y_interval].mean().mean(axis = 1)
 
-    print('making data for graph')
     x = []
     y = []    
     for period in sorted(result.keys()):
