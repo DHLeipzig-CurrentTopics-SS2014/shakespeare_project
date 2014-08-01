@@ -7,12 +7,6 @@ urlpatterns = patterns('',
     url(r'^authors/$', views.author_index, name='index'),
     # /authors/3/
     url(r'^authors/(?P<author_id>\d+)/$', views.author_detail, name='detail'),
-
-    # /corpora/
- #   url(r'^corpora/$', views.corpora_index, name='index'),
-    # /corpora/2
- #   url(r'^corpora/(?P<corpus_id>\d+)/$', views.corpus_detail, name='detail'),  
-
     
     # /texts/
     url(r'^texts/$', views.text_index, name='index'),
