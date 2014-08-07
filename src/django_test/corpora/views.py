@@ -8,8 +8,6 @@ import corpora.calculations as calc
 from os import listdir
 from os.path import isfile,join,exists
 
-# Create your views here.
-
 def author_index(request):
     authors = Author.objects.all().order_by('name')
     return render(request, 'authors/index.html', {'author_list': authors})
@@ -31,13 +29,10 @@ def text_words(request, text_id):
     return render(request, 'texts/words.html', {'word_text_counts': words})
 
 def compute_index(request):
-    authors = Author.objects.all().order_by('name')
-    
-    #next Get all Files: vom Textcollection ordner
-    
+    authors = Author.objects.all().order_by('name')    
+    #next Get all Files: vom Textcollection ordner    
     path="corpora/textcollections/"
     files = [f for f in listdir(path) if isfile(join(path,f))]
-
     return render(request, 'compute/index.html',{'author_list': authors,'textcoll':files})
 
 def compute_result(request):

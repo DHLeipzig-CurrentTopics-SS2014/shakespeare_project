@@ -19,12 +19,12 @@ def textfinder(request):
     y_from = request.POST.get("y_from")
     y_from = texts[0].year if y_from == "" else int(y_from)
     texts = texts.filter(year__gte = str(y_from))
-    
+
     y_to = request.POST.get("y_to")
-    y_to = texts.last().year if y_to == "" else int(y_to) 
+    y_to = texts.last().year if y_to == "" else int(y_to)
     texts = texts.filter(year__lte=str(y_to))
     return texts
-    
+
 def group_by_interval(texts, y_interval):
     texts = texts.order_by('year')
     Y_INTERVAL = y_interval
@@ -41,7 +41,7 @@ def group_by_interval(texts, y_interval):
 def textsToDataFrames(texts_dict, stem):
     y_df_dict = {}
     for y_interval, texts in texts_dict.items():
-       y_texts_dict = {} 
+       y_texts_dict = {}
        for text in texts:
            word_counts = WordInTextCount.objects.filter(text = text).values_list('word__%s' % 'stemmed' if stem else 'word', 'count')
            y_texts_dict[text.title] = { x[0]:x[1] for x in word_counts }
@@ -57,33 +57,36 @@ def tfidf(texts_df):
 
 def id_function(texts_df):
    return texts_df
-   
+
 def compute_result(request):
 
     # dict with possible calculations
     calc_options = {'tfidf':tfidf,
-                    'id':id_function}
+                    'id':id_function,
+                    'words_per_year': words_per_year}
+    if request.POST.get('function') == 'words_per_year':
+        return words_per_year(request)
 
     texts_dict = group_by_interval(textfinder(request), 5)
     text_dfs = textsToDataFrames(texts_dict, True if request.POST.get('stem') == 'on' else False)
-    
+
     result = calc_options[request.POST.get('function')](text_dfs)
-    
+
     if (request.POST.get('uploadtype') == 'uploaded_file'):
         words = request.FILES['upload_file'].read().decode("utf-8").split('\n')
     else:
         words = open('corpora/textcollections/' + request.POST.get('wordlist'), 'r').read().split('\n')
-    
+
     for y_interval in result.keys():
         word_df = pd.DataFrame(index = words, columns = result[y_interval].keys()).fillna(0)
         result[y_interval] = pd.merge(result[y_interval], word_df, left_index=True, right_index=True)
         result[y_interval] = result[y_interval].mean().mean(axis = 1)
 
     x = []
-    y = []    
+    y = []
     for period in sorted(result.keys()):
         x.append(str(period[0]+(period[1]-period[0])/2))
-        if not np.isnan(result[period]): 
+        if not np.isnan(result[period]):
             y.append(str(result[period]))
         else:
             print("ERROR: NAN VALUES")
@@ -91,7 +94,7 @@ def compute_result(request):
 
     x = '[' + ','.join(x) + ']'
     y = '[' + ','.join(y) + ']'
-        
+
     return {
             'text_list': "",
             'x': x,
@@ -102,13 +105,31 @@ def compute_result(request):
 def words_per_year(request):
     texts = textfinder(request)
     r = re.compile('[.,:;_]')
-    words = r.split(request.POST.get('words')).strip()    
+    words = list(map(str.strip, r.split(request.POST.get('words'))))
     y_from = texts.earliest('year').year
     y_to = texts.latest('year').year
-    wcounts = {w: ([0]*(y_to-y_from)) for w in words}
-    
-    
-    
-    
+    # word -> list, entry for each year
+    wcounts = { w: ([0]*(y_to-y_from+1)) for w in words }
+    for text in texts:
+        wtcs = WordInTextCount.objects.filter(text = text)
+        for word in words:
+            counts = wtcs.filter(word__word=word)
+            if len(counts) > 0:
+                wcounts[word][text.year-y_from] += counts.first().count
+
+    xs = list(range(y_from, y_to+1))
+    ys = [0]*(y_to-y_from+1)
+    for w in wcounts:
+        ys = [x + y for x, y in zip(wcounts[w], ys)]
+
+    xs = '[' + ','.join(map(str, xs)) + ']'
+    ys = '[' + ','.join(map(str, ys)) + ']'
+    return {
+            'text_list': "",
+            'x': xs,
+            'y': ys
+            }
+
+
+
     #return result
-    
