@@ -5,7 +5,7 @@
 {% if text_list %}
     <ul>
     {% for text in text_list %}
-        <li><a href="/texts/{{ text.id }}/">{{ text.title }}</a> by <a href="/authors/{{text.author.id}}/">{{ text.author.name}}</a></li>
+        <li><a href="/corpora/texts/{{ text.id }}/">{{ text.title }}</a> by <a href="/corpora/authors/{{text.author.id}}/">{{ text.author.name}}</a></li>
     {% endfor %}
     </ul>
 {% else %}

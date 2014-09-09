@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from os.path import dirname, join
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -27,6 +28,10 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 
+TEMPLATE_DIRS = (
+    join(dirname(dirname(__file__)), "templates"),
+)
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -37,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corpora',
+    'calculations',
 )
 
 MIDDLEWARE_CLASSES = (

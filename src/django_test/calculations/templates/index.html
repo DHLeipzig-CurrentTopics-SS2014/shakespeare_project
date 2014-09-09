@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Calculations{% endblock %}
+{% block headline %}Calculations{% endblock %}
+{% block content %}
+{% if questions %}
+
+	<div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-pills">
+			    {% for question in questions %}
+			        <li><a href="/calculations/">{{ question.title }}</a></li>
+			    {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% else %}
+    <p>No authors are available.</p>
+{% endif %}
+{% endblock %}

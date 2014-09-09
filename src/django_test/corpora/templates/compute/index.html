@@ -2,7 +2,7 @@
 {% block title %}Settings for Computation{% endblock %}
 {% block headline %}Settings for Computation{% endblock %}
 {% block content %}
-<form name="compute_form" method="POST" action='/compute/result/' enctype="multipart/form-data" role="form">
+<form name="compute_form" method="POST" action='/corpora/compute/result/' enctype="multipart/form-data" role="form">
     {% csrf_token %}
 
     <div class="form-group">

@@ -4,9 +4,9 @@
 {% block content %}
 {% if text %}
     <ul>
-        <li>By: <a href="/authors/{{text.author.id}}/">{{text.author.name}}</a></li>
+        <li>By: <a href="/corpora/authors/{{text.author.id}}/">{{text.author.name}}</a></li>
         <li>Year: {{text.year}}</li>
-        <li><a href="/texts/{{text.id}}/words/">Wordlist</a></li>
+        <li><a href="/corpora/texts/{{text.id}}/words/">Wordlist</a></li>
     </ul>
     <h4>Text</h4>
     <p>
