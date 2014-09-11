@@ -1,19 +1,132 @@
-{% extends "base.html" %}
-{% block title %}Calculations{% endblock %}
-{% block headline %}Calculations{% endblock %}
+{% extends "base.html" %} 
+{% block title %}Calculations{% endblock %} 
+{% block headline %}Calculations{% endblock %} 
 {% block content %}
-{% if questions %}
 
-	<div class="row">
-        <div class="col-md-12">
-            <ul class="nav nav-pills">
-			    {% for question in questions %}
-			        <li><a href="/calculations/">{{ question.title }}</a></li>
-			    {% endfor %}
-            </ul>
-        </div>
-    </div>
+<form name="compute_form" method="POST" action='/calculations/index/'
+	enctype="multipart/form-data" role="form">
+	{% csrf_token %}
+	<div class="col-md-6">
+		<div class="row">
+			<div class="col-md-12">
+				<h4>What timespan do you want to cover?</h4>
+				<h6>(Leave a field blank to go without the boundary)</h6>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+					<label for="y_from_id">from:</label> 
+			</div>
+			<div class="col-md-10">
+					<input id="y_from_id" type="number" name="y_from"> 
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<label for="y_to_id">to:</label>
+			</div>
+			<div class="col-md-10">
+				<input id="y_to_id" type="number" name="y_to">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h4>Texts by which authors do you want to use?</h4>				
+				<h6>(If you choose none, all are used)</h6>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<label for="authors_id">Author(s):</label> 
+			</div>
+			<div class="col-md-10">
+				<select id="authors_id"
+					name="authors" multiple style="max-width=100%"> 
+					{% for author in author_list %}
+						<option value='{{author.name}}'>{{author.name|stringformat:".60s"}}</option> 
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="row">
+			<div class="col-md-12">
+					<h4>Which words do you want to evaluate?</h4>
+					<h6>(Use one of the following:)</h6>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-md-4">
+					<label for="word_id">Custom Words</label> 
+				</div>
+				<div class="col-md-8">
+					<input id="word_id" type="text" name="words">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-md-4">
+						<label for="custom_word_list_id">Custom Word List File</label> 
+				</div>
+				<div class="col-md-8">
+						<input id="custom_word_list_id" type="file" name="upload_file">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-md-4">
+					<label for="word_list_id">Existing Word List</label> 
+				</div>
+				<div class="col-md-8">
+					<select
+						id="word_list_id" name="wordlist"> 
+						{% for text in textcoll %}
+							<option value="{{text}}">{{text}}</option> 
+						{% endfor%}
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-md-12">
+					<h4>Further options</h4>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<div class="col-md-4">
+				<label for="stem_id">Stem</label>
+				</div>
+				<div class="col-md-8">
+				<input id="stem_id" type="checkbox" name="stem">
+				</div>
+			</div>
+		</div>
+			</tr>
+
+		</table>
+        	<div class="col-md-12">
+            	<input type="submit">
+			</div>
+	</div>
+</form>
+
+{% if questions %}
+<div class="row">
+	<div class="col-md-12">
+		<ul class="nav nav-pills">
+			{% for question in questions %}
+			<li><a href="/calculations/">{{ question.name }}</a></li> 
+			{% endfor %}
+		</ul>
+	</div>
+</div>
 {% else %}
-    <p>No authors are available.</p>
-{% endif %}
-{% endblock %}
+<p>No calculation functions are available!</p>
+{% endif %} {% endblock %}

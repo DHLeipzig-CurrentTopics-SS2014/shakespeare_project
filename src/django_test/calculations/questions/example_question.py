@@ -2,14 +2,14 @@
 
 
 class ExampleQuestion:
-    def title(self):
+    def name(self):
         # shown in the navigation
         return "A Question"
     
-    def name(self):
+    def title(self):
         # title for the page
         return "What could this mean?"
     
-    def calc(self, request):
+    def calc(self, parsed_request):
         # your calculations
         pass
