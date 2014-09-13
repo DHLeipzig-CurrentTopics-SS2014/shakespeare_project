@@ -1,19 +1,9 @@
-{% extends "base.html" %}
+{% extends "choose_calc.html" %}
 {% load staticfiles %}
 {% block title %}Results{% endblock %}
 {% block headline %}Results{% endblock %}
-{% block content %}
+{% block result %}
 
-{% if text_list %}
-    <ul>
-    {% for text in text_list %}
-        <li><a href="/texts/{{ text.id }}/">{{ text.title }}</a> by <a href="/authors/{{text.author.id}}/">{{ text.author.name}}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No texts available.</p>
-{% endif %}
-<h2> Diagram </h2>
 <div id="canvas"></div>
 <script src="{% static 'raphael-min.js' %}"></script>
 <script src="{% static 'g.raphael-min.js' %}"></script>

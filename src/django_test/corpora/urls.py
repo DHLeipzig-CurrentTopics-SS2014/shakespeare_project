@@ -21,12 +21,6 @@ urlpatterns = patterns('',
     # /corpora/
     url(r'^corpora/upload/$', views.corpora_upload, name='upload'),
     
-    
-    # /compute/
-    url(r'^compute/$', views.compute_index, name='index'),
-    # /compute/result
-    url(r'^compute/result/$', views.compute_result, name='result'),
-    
         
     )
     
