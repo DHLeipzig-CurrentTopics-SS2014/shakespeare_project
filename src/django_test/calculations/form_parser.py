@@ -1,3 +1,4 @@
+import re
 
 def parse_data_input_form(request):
     # return a hash of interpreted data from the form. The hash has the following fields:
@@ -7,10 +8,11 @@ def parse_data_input_form(request):
     # if words were given in the form field these are taken, otherwise the wordlist stated. 
     return { 'timespan': parse_timespan(request),
             'authors': parse_authors(request),
-            'words': parse_words_decision(request)}
+            'words': parse_words_decision(request),
+            'stem': request.POST.get('stem') == 'on'}
     
 def parse_words_decision(request):
-    if (request.FILES['upload_file']):
+    if (request.FILES and request.FILES['upload_file']):
         words = request.FILES['upload_file'].read().decode("utf-8").split('\n')
     elif(request.POST.get('words') != ''):
         r = re.compile('[.,:;_]')

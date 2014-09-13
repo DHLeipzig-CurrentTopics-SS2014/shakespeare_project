@@ -1,5 +1,8 @@
 
 class BookWithMostWords:
+    def url(self):
+        return "books_with_most_words"
+    
     def name(self):
         # shown in the navigation
         return "Books with Most Words"
@@ -10,4 +13,4 @@ class BookWithMostWords:
     
     def calc(self, parsed_request):
         # your calculations
-        pass
+        return {'x': '[]', 'y':'[]'}

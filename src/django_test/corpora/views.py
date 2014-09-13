@@ -28,16 +28,6 @@ def text_words(request, text_id):
     words = WordInTextCount.objects.filter(text__id=text_id)
     return render(request, 'texts/words.html', {'word_text_counts': words})
 
-def compute_index(request):
-    authors = Author.objects.all().order_by('name')    
-    #next Get all Files: vom Textcollection ordner    
-    path="corpora/textcollections/"
-    files = [f for f in listdir(path) if isfile(join(path,f))]
-    return render(request, 'compute/index.html',{'author_list': authors,'textcoll':files})
-
-def compute_result(request):
-    return render(request, 'compute/compute_result.html', calc.compute_result(request))
-
 def corpora_index(request):
     corpora = Corpus.objects.all()
     return render(request, 'corpora/index.html', {'corpora': corpora})

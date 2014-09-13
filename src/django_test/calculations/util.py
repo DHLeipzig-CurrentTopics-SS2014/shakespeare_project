@@ -1,7 +1,13 @@
+from corpora.models import *
+import re
+import pandas as pd
+
 def get_texts_from_authors_in_timespan(authors, timespan):
-    texts = Text.objects.filter(author__in = authors)
-    texts = texts.filter(year__gte = str(timespan[0]))
-    texts = texts.filter(year__lte = str(timespan[1]))
+    texts = Text.objects.filter(author__name__in = authors)
+    if(timespan[0] != -1):
+        texts = texts.filter(year__gte = str(timespan[0]))
+    if(timespan[1] != -1):
+        texts = texts.filter(year__lte = str(timespan[1]))
     return texts
 
 def filter_authors(author_str_list):
@@ -36,9 +42,3 @@ def texts_to_data_frames(texts_dict, stem):
        text_df = pd.DataFrame(y_texts_dict).fillna(0)
        y_df_dict[y_interval] = text_df
     return y_df_dict
-
-def tfidf(texts_df):
-    result = {}
-    for y_interval, text_df in texts_df.items():
-        result[y_interval] = pd.DataFrame(data = TfidfTransformer().fit_transform(text_df).toarray(), index =text_df.index, columns = text_df.columns)
-    return result

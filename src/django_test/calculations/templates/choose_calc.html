@@ -1,0 +1,31 @@
+{% extends "base.html" %} 
+{% block title %}Calculations{% endblock %} 
+{% block headline %}Calculations{% endblock %} 
+{% block content %}
+
+	{% if questions %}
+		<h5>Choose your analysis algorithm:</h5>
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="nav nav-tabs">
+					{% for question in questions %}
+					<li {% if active %}
+							{% if active == question.url %}
+								class="active"
+							{% endif %}
+						{% endif %}
+						><a href="/calculations/{{question.url}}/">{{ question.name }}</a></li> 
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	{% else %}
+		<p>No calculation functions are available!</p>
+	{% endif %} 
+	<div class="row">
+		<div class="col-md-12">
+		{% block result %}
+		{% endblock %}
+		</div>
+	</div>
+{% endblock %}

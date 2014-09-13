@@ -1,6 +1,11 @@
 from calculations import util
+from corpora.models import *
+import re
 
 class WordsPerYear:
+    def url(self):
+        return "words_per_year"
+    
     def title(self):
         # title for the page
         return "Shows"
@@ -11,7 +16,7 @@ class WordsPerYear:
     
     def calc(self, parsed_request):
         # your calculations
-        texts = get_texts_from_authors_in_timespan(parsed_request['authors'], parsed_request['timespan'])
+        texts = util.get_texts_from_authors_in_timespan(parsed_request['authors'], parsed_request['timespan'])
         r = re.compile('[.,:;_]')
         words = parsed_request['words']
         y_from = texts.earliest('year').year

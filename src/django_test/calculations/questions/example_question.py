@@ -2,6 +2,9 @@
 
 
 class ExampleQuestion:
+    def url(self):
+        return "example"
+
     def name(self):
         # shown in the navigation
         return "A Question"
@@ -12,4 +15,4 @@ class ExampleQuestion:
     
     def calc(self, parsed_request):
         # your calculations
-        pass
+        return {'x': '[]', 'y':'[]'}
