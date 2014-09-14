@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     url(r'example/$', views.example_question, name='example'),
     url(r'tfidf/$', views.tfidf, name='tfidf'),
     url(r'books_with_most_words/$', views.books_with_most_words, name='books_with_most_words'),
+    url(r'author_with_most_words/$', views.author_with_most_words, name='author_with_most_words'),
     
         
     )

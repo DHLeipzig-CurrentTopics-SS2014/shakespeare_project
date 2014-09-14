@@ -17,7 +17,6 @@ class WordsPerYear:
     def calc(self, parsed_request):
         # your calculations
         texts = util.get_texts_from_authors_in_timespan(parsed_request['authors'], parsed_request['timespan'])
-        r = re.compile('[.,:;_]')
         words = parsed_request['words']
         y_from = texts.earliest('year').year
         y_to = texts.latest('year').year

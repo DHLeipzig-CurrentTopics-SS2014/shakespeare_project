@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from calculations.questions.example_question import ExampleQuestion
 from calculations.questions.booksMostShakeWords import BookWithMostWords
+from calculations.questions.author_with_most_words import AuthorWithMostWords
 from calculations.questions.words_per_year import WordsPerYear
 from calculations.questions.tfidf import TFIDF
 from calculations import form_parser
@@ -8,7 +9,7 @@ from corpora.models import *
 from os import listdir
 from os.path import isfile,join,exists
 
-calculations_available = [ExampleQuestion, BookWithMostWords, WordsPerYear, TFIDF]
+calculations_available = [ExampleQuestion, BookWithMostWords, WordsPerYear, TFIDF, AuthorWithMostWords]
 # each calculation available must be set up in this list and provide a function below. mind that you need to put an url in this apps urls.py!
 
 def index(request):
@@ -39,6 +40,9 @@ def example_question(request):
 
 def books_with_most_words(request):
     return process_graph_constructing_question(request, BookWithMostWords)
+
+def author_with_most_words(request):
+    return process_graph_constructing_question(request, AuthorWithMostWords)
 
 def tfidf(request):
     return process_graph_constructing_question(request, TFIDF)
