@@ -1,7 +1,13 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
+####################################
+#
+# usage: ./lampeter_parser.py <Lampeter_txt.zip> <output_dir>
+#
+####################################
 
 import re
-import os
+import os, sys
+import zipfile
 from lxml import etree
 
 def find_title(content):
@@ -40,13 +46,15 @@ def clean_from_entities(text):
     pattern = re.compile('&[a-zA-Z]{1,10};', re.IGNORECASE)
     return pattern.sub('', text)
 
-def parse_document(filename):
-    doc = open(filename, 'r', encoding='iso-8859-15').read()
+def parse_document(corpusfile, filename):
+    #universal newlines does not seem to work. we need to replace the \r ourselves.
+    doc = corpusfile.open(filename, 'U').read().decode(encoding='iso-8859-15').replace('\r','\n')
     result = {}
     result['title'] = find_title(doc)
     result['author'] = find_author(doc)
     result['date'] = find_date(doc)
     result['textlist'] = clean_from_nonletters(clean_from_markup(clean_from_entities(find_text(doc)))).split()
+    result['text'] = clean_from_markup(clean_from_entities(find_text(doc)))
     return result
 
 def build_xml(doc_dict):
@@ -58,16 +66,20 @@ def build_xml(doc_dict):
     title = etree.SubElement(xml, 'title')
     title.text = doc_dict['title']
     text = etree.SubElement(xml, 'text')
-    for index, word in enumerate(doc_dict['textlist']):
-        w = etree.SubElement(text, 'w', id=str(index))
-        w.text = word
+    text.text = doc_dict['text']
     return xml
 
+def main(corpus, result_dir):
 
+    if not os.path.exists(result_dir):
+        os.makedirs(result_dir)
 
-for filename in os.listdir('Input/'):
-    xml = build_xml(parse_document(''.join(['Input/', filename])))
-    out = open(''.join(['Output/', filename.replace('txt', 'xml')]), 'w', encoding='utf-8')
-    out.write(etree.tostring(xml, pretty_print=True, encoding=str))
-    print(filename, ' finished')
+    zf = zipfile.ZipFile(corpus)
+    for zfile in zf.infolist():
+        xml = build_xml(parse_document(zf, zfile))
+        et = etree.ElementTree(xml)
+        et.write(os.path.join(result_dir, zfile.filename.replace('txt', 'xml')), pretty_print=True)        
+        print(zfile.filename, ' finished')
 
+if __name__ == "__main__":
+    main(sys.argv[1], sys.argv[2])
