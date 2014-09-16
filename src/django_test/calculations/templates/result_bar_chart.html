@@ -1,0 +1,21 @@
+{% extends "choose_calc.html" %}
+{% load staticfiles %}
+{% block title %}Results{% endblock %}
+{% block headline %}Results{% endblock %}
+{% block result %}
+
+<div id="canvas"></div>
+<script src="{% static 'raphael-min.js' %}"></script>
+<script src="{% static 'g.raphael-min.js' %}"></script>
+<script src="{% static 'g.line-min.js' %}"></script>
+<script>
+    window.onload = function () {
+    var r = Raphael("canvas",640,480),
+    txtattr = { font: "12px sans-serif" };
+
+    var x = {{ x }}, y = {{ y }};
+
+    r.barchart(50, 10, 580, 460, y, {});
+    };
+</script>
+{% endblock %}

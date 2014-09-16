@@ -42,14 +42,25 @@ def books_with_most_words(request):
     return process_graph_constructing_question(request, BookWithMostWords)
 
 def author_with_most_words(request):
-    return process_graph_constructing_question(request, AuthorWithMostWords)
+    return process_graph_constructing_question(request, AuthorWithMostWords, 'bar')
 
 def tfidf(request):
     return process_graph_constructing_question(request, TFIDF)
 
-def process_graph_constructing_question(request, question_class):
+def process_graph_constructing_question(request, question_class, visualization='graph'):
     if(not request.session['input_data']):
         return redirect('/calculations/')
     calc = question_class()
     result = calc.calc(request.session['input_data'])
+    if(visualization == 'graph'):
+        return make_graph(request, calc, result)
+    elif(visualization == 'bar'):
+        return make_bars(request, calc, result)
+    else:
+        return make_graph(request, calc, result)
+    
+def make_graph(request, calc, result):
     return render(request, 'result_graph.html', {'x': result['x'], 'y': result['y'], 'questions': calculations_available, 'active': calc.url()})
+
+def make_bars(request, calc, result):
+    return render(request, 'result_bar_chart.html', {'x': result['x'], 'y': result['y'], 'questions': calculations_available, 'active': calc.url()})

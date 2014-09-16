@@ -12,8 +12,8 @@ def get_texts_from_authors_in_timespan(authors, timespan):
 
 def filter_authors(author_str_list):
     # if objects in the list authors are filtered by the given names, otherwise all authors are returned.
-    if(len(authors) > 0):
-        authors=Author.objects.all().filter(name__in=author_str_list).values_list('id', flat=True)
+    if(len(author_str_list) > 0):
+        authors=Author.objects.all().filter(name__in=author_str_list)
     else:
         authors = Author.objects.all()
     return authors

@@ -14,26 +14,41 @@ class AuthorWithMostWords:
         # shown in the navigation
         return "Words/Author"
     
-    def calc(self, parsed_request):
-        # your calculations
+    def calc(self, parsed_request):        
         words = parsed_request['words']
         authors = util.filter_authors(parsed_request['authors'])
-        authors_texts = { author: author.text_set.all() for author in authors }
-        authors_wtcs = { author: [ text.wordintextcount_set.all() for text in texts ] for author, texts in authors_texts.items() }
-        authors_wtcs_filtered = { author: list(filter(lambda x: x in words, [ wtc for wtc in wtcs])) for author, wtcs in authors_wtcs.items()}
-        
-        
-        xs=[]
-        ys =[]    
-      # TODO das funktioniert oben noch nicht
-      # wtcs zählen
-      # sortieren -> die höchstgerankten autoren ausgeben
-
+        authors_texts = { author.name: author.text_set.all() for author in authors }
+        authors_wtcs = { author: flatten_list([ text.wordintextcount_set.values_list('word__word', 'count') for text in texts ]) for author, texts in authors_texts.items() }
+        authors_wtcs_filtered = { author: list(filter(lambda x: x[0] in words, tcs)) for author, tcs in authors_wtcs.items() }
     
-        xs = '[' + ','.join(map(str, xs)) + ']'
-        ys = '[' + ','.join(map(str, ys)) + ']'
+        authors_wtcs_totals = { author: sum(map(lambda t: t[1], tcs)) for author, tcs in authors_wtcs.items() }
+        authors_wtcs_filtered_totals = { author: sum(map(lambda t: t[1], tcs)) for author, tcs in authors_wtcs_filtered.items() }
+        
+        authors_word_ratio = []
+        for author, count in authors_wtcs_totals.items():
+            authors_word_ratio.append((author, authors_wtcs_filtered_totals[author]/authors_wtcs_totals[author]))
+        authors_word_ratio = sorted(authors_word_ratio, key=lambda c: c[1])
+
+        xs=[author for author, ratio in authors_word_ratio]
+        ys =[ratio for author, ratio in authors_word_ratio]
+        xs = '[' + ','.join(list(map(str, xs))) + ']'
+#         ys = '[' + ','.join(list(map(str, ys))) + ']'
         return {
                 'text_list': "",
                 'x': xs,
                 'y': ys
                 }
+
+def find_wordintextcounts(wtcs, words):
+    res = list(map(lambda w: count_or_none(wtcs, w), words))
+    return filter(lambda c: c != None, res)
+
+def count_or_none(wtcs, w):
+    wtc = wtcs.filter(word__word=w).first()
+    if(wtc):
+        return wtc.count
+    else:
+        return None
+    
+def flatten_list(l):
+    return [item for sublist in l for item in sublist]
