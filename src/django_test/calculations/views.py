@@ -33,7 +33,7 @@ def store_input_for_session(session, input_data):
     session['input_data'] = input_data
 
 def words_per_year(request):
-    return process_graph_constructing_question(request, WordsPerYeari,'graph')
+    return process_graph_constructing_question(request, WordsPerYear,'graph')
 
 def example_question(request):
     return process_graph_constructing_question(request, ExampleQuestion)
