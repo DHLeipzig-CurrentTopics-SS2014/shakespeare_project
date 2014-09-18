@@ -19,7 +19,7 @@ def index(request):
     files = [f for f in listdir(path) if isfile(join(path,f))]
 
     options = { 'author_list': authors,'textcoll':files }
-    if(request.session['input_data']):
+    if("input_data" in request.session):
         options['questions'] = calculations_available
     return render(request, 'index.html', options)
 
