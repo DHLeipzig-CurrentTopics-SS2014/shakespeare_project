@@ -1,0 +1,261 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language ngerman
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Shakespeare Projekt
+\end_layout
+
+\begin_layout Author
+Lukas Fischer, Lukas Kairies, Robert Terbach, Thomas Döring, Simon Vetter
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Installation- und Startanleitung
+\end_layout
+
+\begin_layout Standard
+Folgende Python 3 Pakete werden für das Projekt benötigt:
+\end_layout
+
+\begin_layout Itemize
+Django
+\end_layout
+
+\begin_layout Itemize
+Pandas
+\end_layout
+
+\begin_layout Itemize
+Numpy
+\end_layout
+
+\begin_layout Itemize
+...
+ (TODO: was noch? welche Versionsnummern?)
+\end_layout
+
+\begin_layout Standard
+Um den Webservice zu starten muss folgender Befehl im Wurzelverzeichnis
+ des Projektes ausgeführt werden
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+python3 src/django_test/manage.py runserver
+\end_layout
+
+\end_inset
+
+(TODO: Django_test ersetzen)
+\begin_inset Newline newline
+\end_inset
+
+Anschließend ist der Webservice über 
+\emph on
+localhost:8000
+\emph default
+ erreichbar
+\end_layout
+
+\begin_layout Section
+Entwicklung des Projektes während des Semesters
+\end_layout
+
+\begin_layout Subsection
+Forschungsfragen
+\end_layout
+
+\begin_layout Standard
+Zu Beginn des Semesters haben wir uns Shakespeare als Thema für unser Projekt
+ gewählt.
+ Shakespeare erfand in seinen Texten eine Vielzahl neuer Wörter bzw.
+ belegte bereits existierende Wörter mit neuen Bedeutungen.
+ Als Schwerpunkt unseres Projektes wollten wir Untersuchen welchen Einfluss
+ Shakespeare und seine Wortschöpfungen auf die Englische Sprache haben und
+ in diesem Zusammenhang auch, welche dieser Wörter am häufigsten in englischen
+ Texten genutzt wurden und welche Autoren sich am meisten von Shakespeare
+ haben beeinflussen.
+ Zusammengefasst haben wir uns folgende Fragen gestellt:
+\end_layout
+
+\begin_layout Enumerate
+Wie beeinflusste Shakespeare die englische Sprache?
+\end_layout
+
+\begin_layout Enumerate
+Welche Wörter von Shakespeare wurden am meisten verwendet?
+\end_layout
+
+\begin_layout Enumerate
+Welche Autoren nutzen die meisten Wörter Shakespears?
+\end_layout
+
+\begin_layout Enumerate
+In welchen Büchern wurden die meisten Shakespeare Wörter genutzt?
+\end_layout
+
+\begin_layout Subsection
+Sammeln der Shakespeare Wörter
+\end_layout
+
+\begin_layout Standard
+Um eine Sammlung von Shakespeare Wörtern zu erstellen planten wir zunächst
+ einen Korpus bestehend aus Shakespears Texten mit Referenztexten aus dem
+ selben Zeitraum (15.
+ und 16.
+ Jahrhundert) zu vergleichen, um so die von Shakespeare eingeführten Wörter
+ zu erhalten.
+ Letztendlich konnten wir diesen aufwendigen Prozess umgehen, in dem wir
+ die Wörterdatenbank des Oxford English Dictionary (www.oed.com) nach Wörtern
+ mit Bezug auf Shakespeare durchsuchten und so eine Sammlung von Shakespeare
+ Wörtern erstellen konnten.
+ Da Shakespeare nicht nur Wörter, sondern auch Redewendungen in die englische
+ Sprache einführte, wollten wir diese zunächst auch in unsere Betrachtung
+ einfließen lassen.
+ Aufgrund des Mehraufwandes haben wir dies aber nicht umgesetzt.
+\end_layout
+
+\begin_layout Subsection
+Korpus
+\end_layout
+
+\begin_layout Standard
+Als Vergleichstexte für die weitere Betrachtung nutzen wir mehrere Korpora,
+ bestehend aus Texten, Briefen und schriftlich festgehaltenen Unterhaltungen
+ aus den Jahren 1560 bis 1920.
+ Ursprünglich wollten wir Projekt Gutenberg (gutenberg.org) und archive.org
+ als Quellen für diese Texte zu nutzen.
+ Nach genauerer Recherche haben wir uns aber dagegen entschieden, da viele
+ Texte aus diesen Quellen nicht mit Erscheinungsjahren aufgelistet sind
+ und daher für unsere Betrachtung ungeeignet sind.
+ Stattdessen bezogen wir die von uns genutzten Korpera von KU Leuven (www.kuleuve
+n.be) und University of Oxford Text Archive (www.ota.ahds.ac.uk).
+ Insgesamt besteht unsere Korperasammlung aus
+\end_layout
+
+\begin_layout Itemize
+mehr als 900 Texte von über 400 Autoren
+\end_layout
+
+\begin_layout Itemize
+mehr als 62 Milllionen Wörtern
+\end_layout
+
+\begin_layout Subsection
+Entwicklung unseres Webservices
+\end_layout
+
+\begin_layout Standard
+Während der Bearbeitung unserer Forschungsfragen mit Bezug auf Shakespeare
+ haben wir uns entschieden einen allgemein einsetzbaren Webservice zu entwickeln
+ und unsere Fragen als ein Anwendungsfall für diesen Webservice zu betrachten.
+ So können wir unsere Fragen beantworten und gleichzeitig ein Service bieten,
+ der unabhängig von Korpera und Wortliste ein Möglichkeit bietet ähnliche
+ Fragen mit anderem Themenbezug zu beantworten.
+ Ähnlich wie Google Ngram Viewer (https://books.google.com/ngrams) soll hier
+ die Relevanz der betrachteten Wörter über die Zeit angegeben werden, aber
+ auch mehr Funktionalität geboten werden.
+ Etwa lassen sich benutzerdefinierte Korpera verwenden und Fragen in Bezug
+ auf andere Eigenschaften der Texte stellen, etwa in Bezug auf den Autor.
+ In diesem Zusammenhang haben wir geplant, neben dem zeitlichen Verlauf,
+ eine geografische Verteilung, mit Bezug auf Veröffentlichungsort und Geburtsort
+ des Autors, zu visualisieren.
+ Da wir hierfür aber keine hinreichende Datenquelle gefunden haben, haben
+ wir diese Idee verworfen.
+\end_layout
+
+\begin_layout Subsubsection
+Methodik
+\end_layout
+
+\begin_layout Standard
+Nachdem die zu untersuchenden Korpera in die Datenbank des Webservice geladen
+ wurden, lassen sich über eine Formularseite Textsammlungen anhand von Erscheinu
+ngsjahr, Autor und weiteren Eigenschaften erstellen und verschiedene Berechnunge
+n auf diesen durchführen.
+ Zum einladen eines Korpus muss dieser mittels eines Parsers zunächst in
+ ein einheitliches Format gebracht werden.
+\end_layout
+
+\end_body
+\end_document
