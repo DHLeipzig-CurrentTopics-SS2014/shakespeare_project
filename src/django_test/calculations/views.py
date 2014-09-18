@@ -42,7 +42,7 @@ def books_with_most_words(request):
     return process_graph_constructing_question(request, BookWithMostWords)
 
 def author_with_most_words(request):
-    return process_graph_constructing_question(request, AuthorWithMostWords, 'bar')
+    return process_graph_constructing_question(request, AuthorWithMostWords)
 
 def tfidf(request):
     return process_graph_constructing_question(request, TFIDF)
