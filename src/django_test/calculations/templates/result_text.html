@@ -1,0 +1,12 @@
+{% extends "choose_calc.html" %}
+{% load staticfiles %}
+{% block title %}Results{% endblock %}
+{% block headline %}Results{% endblock %}
+{% block result %}
+
+<table border=1px>
+{% for x,y in list %}
+<tr><td>{{forloop.counter0}}</td><td>{{x}}</td><td>{{y}}</td></tr>
+{% endfor %}
+</table>
+{% endblock %}

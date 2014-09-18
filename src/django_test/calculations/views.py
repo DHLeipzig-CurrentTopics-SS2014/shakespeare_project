@@ -33,7 +33,7 @@ def store_input_for_session(session, input_data):
     session['input_data'] = input_data
 
 def words_per_year(request):
-    return process_graph_constructing_question(request, WordsPerYear)
+    return process_graph_constructing_question(request, WordsPerYeari,'graph')
 
 def example_question(request):
     return process_graph_constructing_question(request, ExampleQuestion)
@@ -47,7 +47,7 @@ def author_with_most_words(request):
 def tfidf(request):
     return process_graph_constructing_question(request, TFIDF)
 
-def process_graph_constructing_question(request, question_class, visualization='graph'):
+def process_graph_constructing_question(request, question_class, visualization='text'):
     if(not request.session['input_data']):
         return redirect('/calculations/')
     calc = question_class()
@@ -57,10 +57,15 @@ def process_graph_constructing_question(request, question_class, visualization='
     elif(visualization == 'bar'):
         return make_bars(request, calc, result)
     else:
-        return make_graph(request, calc, result)
+        return make_text(request, calc, result)
     
 def make_graph(request, calc, result):
     return render(request, 'result_graph.html', {'x': result['x'], 'y': result['y'], 'questions': calculations_available, 'active': calc.url()})
 
 def make_bars(request, calc, result):
     return render(request, 'result_bar_chart.html', {'x': result['x'], 'y': result['y'], 'questions': calculations_available, 'active': calc.url()})
+
+def make_text(request, calc, result):
+    list = zip(result['x'],result['y'])
+    return render(request, 'result_text.html', {'list':list, 'questions': calculations_available, 'active': calc.url()})
+
