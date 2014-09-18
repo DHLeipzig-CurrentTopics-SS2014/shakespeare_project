@@ -20,10 +20,8 @@ class AuthorWithMostWords:
         authors_texts={}
 
         for author in authors:
-            authors_texts[author.name]=util.get_texts_from_authors_in_timespan(author.name, parsed_request['timespan'])
+            authors_texts[author.name]=util.get_texts_from_authors_in_timespan([author.name], parsed_request['timespan'])
         
-
-
         authors_wtcs = { author: flatten_list([ text.wordintextcount_set.values_list('word__word', 'count') for text in texts ]) for author, texts in authors_texts.items() }
         authors_wtcs_filtered = { author: list(filter(lambda x: x[0] in words, tcs)) for author, tcs in authors_wtcs.items() }
     
