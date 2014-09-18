@@ -20,6 +20,8 @@ def filter_authors(author_str_list):
 
 
 def group_texts_by_interval(texts, y_interval):
+    if (len(texts) == 0):
+        return { (0,0): [] }
     # a hash with pairs of ints (interval_begin, interval_end) as keys, list of the text objects as values
     texts = texts.order_by('year')
     Y_INTERVAL = y_interval
@@ -37,7 +39,12 @@ def texts_to_data_frames(texts_dict, stem):
     for y_interval, texts in texts_dict.items():
        y_texts_dict = {}
        for text in texts:
-           word_counts = WordInTextCount.objects.filter(text = text).values_list('word__%s' % 'stemmed' if stem else 'word', 'count')
+           field = ""
+           if stem:
+               field = 'word__stem'
+           else:
+               field = 'word__word'
+           word_counts = WordInTextCount.objects.filter(text = text).values_list(field, 'count')
            y_texts_dict[text.title] = { x[0]:x[1] for x in word_counts }
        text_df = pd.DataFrame(y_texts_dict).fillna(0)
        y_df_dict[y_interval] = text_df

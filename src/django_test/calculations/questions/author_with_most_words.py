@@ -31,8 +31,7 @@ class AuthorWithMostWords:
 
         xs=[author for author, ratio in authors_word_ratio]
         ys =[ratio for author, ratio in authors_word_ratio]
-        xs = '[' + ','.join(list(map(str, xs))) + ']'
-#         ys = '[' + ','.join(list(map(str, ys))) + ']'
+
         return {
                 'text_list': "",
                 'x': xs,

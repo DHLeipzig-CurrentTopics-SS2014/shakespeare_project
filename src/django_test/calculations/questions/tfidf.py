@@ -21,7 +21,8 @@ class TFIDF:
     def tfidf(self, texts_df):
         result = {}
         for y_interval, text_df in texts_df.items():
-            result[y_interval] = pd.DataFrame(data = TfidfTransformer().fit_transform(text_df).toarray(), index =text_df.index, columns = text_df.columns)
+            result[y_interval] = pd.DataFrame(data = TfidfTransformer().
+                                              fit_transform(text_df).toarray(), index =text_df.index, columns = text_df.columns)
         return result
     
     def calc(self, parsed_request):
@@ -29,6 +30,7 @@ class TFIDF:
         texts = util.get_texts_from_authors_in_timespan(parsed_request['authors'], parsed_request['timespan'])
         texts_dict = util.group_texts_by_interval(texts, 5)
         text_dfs = util.texts_to_data_frames(texts_dict, parsed_request['stem'])
+        print(text_dfs)
     
         result = self.tfidf(text_dfs)
         words = parsed_request['words']
