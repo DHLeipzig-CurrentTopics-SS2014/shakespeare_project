@@ -23,11 +23,15 @@ class WordsPerYear:
         # word -> list, entry for each year
         wcounts = { w: ([0] * (y_to - y_from + 1)) for w in words }
         for text in texts:
-            wtcs = WordInTextCount.objects.filter(text=text)
-            for word in words:
-                counts = wtcs.filter(word__word=word)
-                if len(counts) > 0:
-                    wcounts[word][text.year - y_from] += counts.first().count
+            wtcs = WordInTextCount.objects.filter(text=text).values_list('word__word', 'count')
+            wtcs = filter(lambda wtc: wtc[0] in words, wtcs)
+            for wtc in wtcs:
+                wcounts[wtc[0]][text.year-y_from] += wtc[1]
+            
+#             for word in words:
+#                 counts = wtcs.filter(word__word=word)
+#                 if len(counts) > 0:
+#                     wcounts[word][text.year - y_from] += counts.first().count
     
         xs = list(range(y_from, y_to + 1))
         ys = [0] * (y_to - y_from + 1)
