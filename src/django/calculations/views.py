@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from calculations.questions.example_question import ExampleQuestion
 from calculations.questions.booksMostShakeWords import BookWithMostWords
 from calculations.questions.author_with_most_words import AuthorWithMostWords
 from calculations.questions.words_per_year import WordsPerYear
@@ -9,7 +8,7 @@ from corpora.models import *
 from os import listdir
 from os.path import isfile,join,exists
 
-calculations_available = [ExampleQuestion, BookWithMostWords, WordsPerYear, TFIDF, AuthorWithMostWords]
+calculations_available = [BookWithMostWords, WordsPerYear, TFIDF, AuthorWithMostWords]
 # each calculation available must be set up in this list and provide a function below. mind that you need to put an url in this apps urls.py!
 
 def index(request):
@@ -35,9 +34,6 @@ def store_input_for_session(session, input_data):
 def words_per_year(request):
     return process_graph_constructing_question(request, WordsPerYear,'graph')
 
-def example_question(request):
-    return process_graph_constructing_question(request, ExampleQuestion)
-
 def books_with_most_words(request):
     return process_graph_constructing_question(request, BookWithMostWords)
 
@@ -45,7 +41,7 @@ def author_with_most_words(request):
     return process_graph_constructing_question(request, AuthorWithMostWords)
 
 def tfidf(request):
-    return process_graph_constructing_question(request, TFIDF)
+    return process_graph_constructing_question(request, TFIDF,'graph')
 
 def process_graph_constructing_question(request, question_class, visualization='text'):
     if(not request.session['input_data']):
