@@ -88,30 +88,45 @@ newpage
 Installation- und Startanleitung
 \end_layout
 
+\begin_layout Subsection*
+Installation
+\end_layout
+
+\begin_layout Itemize
+git clone https://github.com/DHLeipzig-CurrentTopics-SS2014/shakespeare_project.gi
+t
+\end_layout
+
+\begin_layout Itemize
+install python3
+\end_layout
+
+\begin_layout Itemize
+pip install django (install python3-setuptools oder python3-pip easy_install3
+ django oder pip3 install django)
+\end_layout
+
+\begin_layout Itemize
+cd shakespeare_project/src/django
+\end_layout
+
+\begin_layout Itemize
+python3 manage.py syncdb
+\end_layout
+
+\begin_layout Itemize
+python3 manage.py runserver
+\end_layout
+
+\begin_layout Itemize
+open browser http://localhost:8000/corpora/corpora
+\end_layout
+
 \begin_layout Standard
-Folgende Python 3 Pakete werden für das Projekt benötigt:
-\end_layout
-
-\begin_layout Itemize
-Django
-\end_layout
-
-\begin_layout Itemize
-Pandas
-\end_layout
-
-\begin_layout Itemize
-Numpy
-\end_layout
-
-\begin_layout Itemize
-...
- (TODO: was noch? welche Versionsnummern?)
-\end_layout
-
-\begin_layout Standard
-Um den Webservice zu starten muss folgender Befehl im Wurzelverzeichnis
- des Projektes ausgeführt werden
+Das Projekt läuft grundlegend mit dem Interpreter Python der Version 3.
+ Falls noch nicht geschehen, kann es mithilfe der Paketverwaltung des Betriebssy
+stems installiert werden, z.B.
+ durch
 \end_layout
 
 \begin_layout Standard
@@ -121,20 +136,113 @@ status open
 
 \begin_layout Plain Layout
 
-python3 src/django_test/manage.py runserver
+apt-get install python3
 \end_layout
 
 \end_inset
 
-(TODO: Django_test ersetzen)
+Python 3 benötigt weiterhin folgende vier Erweiterungspakete:
+\end_layout
+
+\begin_layout Itemize
+Django
+\end_layout
+
+\begin_layout Itemize
+Panadas
+\end_layout
+
+\begin_layout Itemize
+Numpy
+\end_layout
+
+\begin_layout Itemize
+Sklearn
+\end_layout
+
+\begin_layout Standard
+Diese können zum Beispiel durch folgende Befehle installiert werden
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+pip3 install django
+\end_layout
+
+\begin_layout Plain Layout
+
+pip3 install pandas
+\end_layout
+
+\begin_layout Plain Layout
+
+pip3 install numpy
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Startanleitung
+\end_layout
+
+\begin_layout Standard
+Das Shakespeare Project läuft als Webservice, daher muss vor der Benutzung
+ ein Webserver aufgesetzt werden.
+ Django bietet in Python 3 einen eingebauten Testserver, der durch den unten
+ stehenden Befehl gestartet werden kann.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+python3 src/django/manage.py runserver
+\end_layout
+
+\end_inset
+
+Falls nötig, muss die Datenbank vorher migriert werden.
+ Notwendig ist es nur, wenn sich die Datenbankstruktur geändert hat, es
+ erscheint in diesem Fall eine entsprechende Aufforderung beim Starten des
+ Servers in der Konsole.
+ Führen Sie dann folgenden Befehl aus.
 \begin_inset Newline newline
 \end_inset
 
 Anschließend ist der Webservice über 
 \emph on
-localhost:8000
+localhost:8000/corpora/corpora 
 \emph default
- erreichbar
+erreichbar
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Für den Produktivbetrieb sollte der Testserver nicht verwendet werden.
+ Stattdessen sollte ein Webserver (z.B.
+ 
+\emph on
+apache 
+\emph default
+oder 
+\emph on
+nginx
+\emph default
+) eingerichtet werden, der die Django-Funktionialitäten als Skript aufruft.
 \end_layout
 
 \begin_layout Section
@@ -255,6 +363,47 @@ ngsjahr, Autor und weiteren Eigenschaften erstellen und verschiedene Berechnunge
 n auf diesen durchführen.
  Zum einladen eines Korpus muss dieser mittels eines Parsers zunächst in
  ein einheitliches Format gebracht werden.
+ Zum Analyseren der Korpera nutzen wir die aus der Vorlesung bekannten Tf-idf
+ und Worcount Text-Wort Matritzen.
+\end_layout
+
+\begin_layout Section
+Probleme und Fehler
+\end_layout
+
+\begin_layout Standard
+In der Visualisierung unserer Ergebnisse konnten wir bis auf einfache Graphen
+ und Tabellen leider keine weiteren Möglichkeiten implementieren.
+ Wie bereits angesprochen, wollten wir auch geografische Daten in unsere
+ Analyse einfließen lassen und darauf aufbauent eine Weltkarte zur Visualisierun
+g anbieten.
+ Da, wie bereits beschrieben, das Sammeln der geografischen Daten sehr schwierig
+ ist, konnten wir diese Visualisierungsart leider auch nicht umsetzen.
+\end_layout
+
+\begin_layout Section
+Vision unseres Projektes
+\end_layout
+
+\begin_layout Standard
+Mit unserem Webservice wollen wir eine Möglichkeit bieten, mit möglichst
+ wenig wissen über die Techniken und Methodiken Textkopera computergestützt
+ anhand selbst gewählter Wortlisten zu untersuchen.
+ Dafür bietet sich der Browser als Interface gut an.
+ Der Service lässt sich leicht mit eigenen Algorithmen zur Analse erweitern
+ und bietet so neben den bestehenden Verfahren, die Möglichkeit ihn nach
+ den eigenen Bedürfnissen zu erweitern.
+ Unser Service lässt sich sowohl lokal, als auch auf einem Webserver bereitstell
+en.
+\begin_inset Newline newline
+\end_inset
+
+Unsere Ergebnisse zeigen bereits was mit dem Service möglich ist, allerdings
+ sind unsere Ergebnisse zum Teil wenig ausagekräftig.
+ An den Graphen ist erkennbar, das in einigen Zeitabschnitten nur wenige
+ Texte vorhanden sind, was unsere Ergebnisse verfälscht.
+ Dies kann aber gelöst werden, in dem wir mehr Korpera zur Analyse hinzuziehen,
+ um so eine bessere Abdeckung der Zeitabschnitte zu gewährleisten.
 \end_layout
 
 \end_body
