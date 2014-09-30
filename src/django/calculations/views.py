@@ -45,7 +45,7 @@ def author_with_most_words(request):
     return process_graph_constructing_question(request, AuthorWithMostWords)
 
 def tfidf(request):
-    return process_graph_constructing_question(request, TFIDF)
+    return process_graph_constructing_question(request, TFIDF,'graph')
 
 def process_graph_constructing_question(request, question_class, visualization='text'):
     if(not request.session['input_data']):
