@@ -101,36 +101,6 @@ Installation- und Startanleitung
 Installation
 \end_layout
 
-\begin_layout Itemize
-git clone https://github.com/DHLeipzig-CurrentTopics-SS2014/shakespeare_project.gi
-t
-\end_layout
-
-\begin_layout Itemize
-install python3
-\end_layout
-
-\begin_layout Itemize
-pip install django (install python3-setuptools oder python3-pip easy_install3
- django oder pip3 install django)
-\end_layout
-
-\begin_layout Itemize
-cd shakespeare_project/src/django
-\end_layout
-
-\begin_layout Itemize
-python3 manage.py syncdb
-\end_layout
-
-\begin_layout Itemize
-python3 manage.py runserver
-\end_layout
-
-\begin_layout Itemize
-open browser http://localhost:8000/corpora/corpora
-\end_layout
-
 \begin_layout Standard
 Das Projekt läuft grundlegend mit dem Interpreter Python der Version 3.
  Falls noch nicht geschehen, kann es mithilfe der Paketverwaltung des Betriebssy
@@ -193,9 +163,34 @@ pip3 install pandas
 pip3 install numpy
 \end_layout
 
+\begin_layout Plain Layout
+
+pip3 install sklearn
+\end_layout
+
 \end_inset
 
+Anschließend kann mittels
+\end_layout
 
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+git clone https://github.com/
+\end_layout
+
+\begin_layout Plain Layout
+
+	DHLeipzig-CurrentTopics-SS2014/shakespeare_project.git
+\end_layout
+
+\end_inset
+
+der aktuelle Projektstand heruntergeladen werden.
 \end_layout
 
 \begin_layout Subsection*
@@ -252,6 +247,79 @@ oder
 nginx
 \emph default
 ) eingerichtet werden, der die Django-Funktionialitäten als Skript aufruft.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Nun können die zu untersuchenden Korpora in die Datenbank geladen werden.
+ Dazu sollten sie vorher in ein einheitliches, spezifisches Format übertragen
+ werden.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<xml>
+\end_layout
+
+\begin_layout Plain Layout
+
+   <author>...</author>
+\end_layout
+
+\begin_layout Plain Layout
+
+   <year>...</year>
+\end_layout
+
+\begin_layout Plain Layout
+
+   <title>...</title>
+\end_layout
+
+\begin_layout Plain Layout
+
+   <text>
+\end_layout
+
+\begin_layout Plain Layout
+
+      ...
+\end_layout
+
+\begin_layout Plain Layout
+
+   </text>
+\end_layout
+
+\begin_layout Plain Layout
+
+</xml>
+\end_layout
+
+\end_inset
+
+Um diese Arbeit nicht manuell durchführen zu müssen, stehen für die von
+ uns genutzten Korporaquellen Parser bereit, mithilfe derer sie automatisch
+ in dieses Format übertragen werden können.
+ Die Parser liegen dem Projektarchiv bei.
+ Durch das Hilfskript 
+\emph on
+parse_all.py
+\emph default
+ werden alle unsere Korpora automatisch in das Format übertragen.
+\begin_inset Newline newline
+\end_inset
+
+Für den Upload der nun formatierten Korpora kann das Webinterface unter
+ http://localhost:8000/corpora/corpora genutzt werden.
 \end_layout
 
 \begin_layout Section
@@ -372,8 +440,9 @@ ngsjahr, Autor und weiteren Eigenschaften erstellen und verschiedene Berechnunge
 n auf diesen durchführen.
  Zum Einladen eines Korpus muss dieser mittels eines Parsers zunächst in
  ein einheitliches Format gebracht werden.
- Zum Analyseren der Korpera nutzen wir die aus der Vorlesung bekannten Tf-idf
- und Worcount Text-Wort Matritzen.
+ Zum Analysieren der Korpora nutzen wir die aus der Vorlesung bekannten
+ Text-Wort-Matritzen mit Tf-idf- bzw.
+ Wordcount-Werten.
 \end_layout
 
 \begin_layout Section
@@ -381,10 +450,11 @@ Probleme und Fehler
 \end_layout
 
 \begin_layout Standard
-In der Visualisierung unserer Ergebnisse konnten wir bis auf einfache Graphen
- und Tabellen leider keine weiteren Möglichkeiten implementieren.
+In der Visualisierung unserer Ergebnisse konnten wir aus Zeitgründen bis
+ auf einfache Graphen und Tabellen leider keine weiteren Möglichkeiten implement
+ieren.
  Wie bereits angesprochen, wollten wir auch geografische Daten in unsere
- Analyse einfließen lassen und darauf aufbauent eine Weltkarte zur Visualisierun
+ Analyse einfließen lassen und darauf aufbauend eine Weltkarte zur Visualisierun
 g anbieten.
  Da, wie bereits beschrieben, das Sammeln der geografischen Daten sehr schwierig
  ist, konnten wir diese Visualisierungsart leider auch nicht umsetzen.
@@ -396,22 +466,22 @@ Vision unseres Projektes
 
 \begin_layout Standard
 Mit unserem Webservice wollen wir eine Möglichkeit bieten, mit möglichst
- wenig wissen über die Techniken und Methodiken Textkopera computergestützt
+ wenig Wissen über die Techniken und Methodiken Textkorpora computergestützt
  anhand selbst gewählter Wortlisten zu untersuchen.
  Dafür bietet sich der Browser als Interface gut an.
- Der Service lässt sich leicht mit eigenen Algorithmen zur Analse erweitern
- und bietet so neben den bestehenden Verfahren, die Möglichkeit ihn nach
+ Der Service lässt sich leicht mit eigenen Algorithmen zur Analyse erweitern
+ und bietet so neben den bestehenden Verfahren die Möglichkeit, ihn nach
  den eigenen Bedürfnissen zu erweitern.
  Unser Service lässt sich sowohl lokal, als auch auf einem Webserver bereitstell
 en.
 \begin_inset Newline newline
 \end_inset
 
-Unsere Ergebnisse zeigen bereits was mit dem Service möglich ist, allerdings
- sind unsere Ergebnisse zum Teil wenig ausagekräftig.
- An den Graphen ist erkennbar, das in einigen Zeitabschnitten nur wenige
+Unsere Ergebnisse zeigen bereits, was mit dem Service möglich ist, allerdings
+ sind unsere Ergebnisse zum Teil wenig aussagekräftig.
+ An den Graphen ist erkennbar, dass in einigen Zeitabschnitten nur wenige
  Texte vorhanden sind, was unsere Ergebnisse verfälscht.
- Dies kann aber gelöst werden, in dem wir mehr Korpera zur Analyse hinzuziehen,
+ Dies kann aber gelöst werden, indem wir mehr Korpora zur Analyse hinzuziehen,
  um so eine bessere Abdeckung der Zeitabschnitte zu gewährleisten.
 \end_layout
 
