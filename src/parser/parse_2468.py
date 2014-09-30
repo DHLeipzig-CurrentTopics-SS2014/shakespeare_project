@@ -3,8 +3,12 @@
 #
 # usage: ./parse_2468.py <2468.zip> <output_dir>
 #
+# SHA256 (2468.zip) = c08b0044d9cc4a7cfee981e85e6de92fbf1a4a17acf606e0c06acd98259e48ba
+# MD5 (2468.zip) = 581a1ba1059a51b6d02bc38479a14c54
+#
 ####################################
 
+from parser_helpers import *
 import codecs
 import re
 import sys, os
@@ -15,25 +19,17 @@ import zipfile
 def interp(text, author, year, cnt, result_dir):
     text = re.sub(r'[%=&\"\'\^\.,\{\}~:£\*\(\)_\-\;\?0-9<>]+', "", text)
     text = re.sub(r'\s+', " ", text)
-    output = "<xml>\n"  # cheap xml generator, sorry, I'm lazy
-    output += "  <author>"+author.strip()+"</author>\n"
-    output += "  <year>"+year.strip()+"</year>\n"
-    output += "  <title>Letter "+str(cnt)+" from"+author+" in"+year+"</title>\n"
-    output += "  <text>\n"
+
+    result_text = ""
     for w in text.split():
         if w not in ["st", "nd", "rd", "th"]: # no numbers
-            output += w+" "
-    output += "  </text>\n"
-    output += "</xml>"
-    with open(result_dir + "/letter"+str(cnt)+".xml", "w") as f:
-        f.write(output)
-    print(cnt)
+            result_text += w+" "
+
+    xml = build_xml(year.strip(), author.strip(), "Letter "+str(cnt)+" from"+author+" in"+year, result_text)
+    write_xml_to_file(xml, os.path.join(result_dir, "letter"+str(cnt)+".xml"))
+    print(cnt, "finished")
 
 def main(corpus, result_dir):
-
-    #~ corpus = sys.argv[1]
-    #~ result_dir = sys.argv[2]
-
     if not os.path.exists(result_dir):
         os.makedirs(result_dir)
 

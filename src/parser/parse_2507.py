@@ -3,8 +3,12 @@
 #
 # usage: ./parse_2507.py <2507.zip> <output_dir>
 #
+# SHA256 (2507.zip) = a9dff6244fe74881099c576cc7ab32ddd86d3b8bee2e44da94938742b4f32154
+# MD5 (2507.zip) = f8b1442d18fd72cfa84abad3ed3c48b5
+#
 ####################################
 
+from parser_helpers import *
 from lxml import etree
 import os
 import glob
@@ -30,41 +34,26 @@ def main(corpus, result_dir):
         #~ print(etree.tostring(root))#, pretty_print=True))
         root = doc.getroot()
 
-        resultDoc = etree.ElementTree()
-        rRoot = etree.Element("xml")
-
         # Author
-        authorElement = etree.Element("author")
-        authorElement.text = root.xpath("dialogueHeader/author")[0].text
-        rRoot.append(authorElement)
+        author = root.xpath("dialogueHeader/author")[0].text
 
         # Year
-        yearElement = etree.Element("year")
-        yearElement.text = root.xpath("dialogueHeader/speechPubDate")[0].text.split()[1].split("/")[0].split("-")[0]
-        rRoot.append(yearElement)
+        year = root.xpath("dialogueHeader/speechPubDate")[0].text.split()[1].split("/")[0].split("-")[0]
 
         # Title
-        titleElement = etree.Element("title")
-        titleElement.text = root.xpath("dialogueHeader/title")[0].text
-        rRoot.append(titleElement)
+        title = root.xpath("dialogueHeader/title")[0].text
 
         # Text
-        text_strings = []
+        text_string = ""
         for dialogue in root.iter("dialogue"):
             for dChild in dialogue:
                 if "comment" == dChild.tag:
                     dialogue.text += dChild.tail
                     dialogue.remove(dChild)
 
-            text_strings += dialogue.xpath("string()").split()
+            text_string += " " + dialogue.xpath("string()")
 
-        text_elem = etree.Element("text")
-        text_elem.text = " ".join(text_strings)
-        rRoot.append(text_elem)
-
-        et = etree.ElementTree(rRoot)
-        et.write(result_dir+"/"+zfile.filename.replace("/",""), pretty_print=True)
-        #~ print(etree.tostring(et))
+        write_xml_to_file(build_xml(year, author, title, text_string), os.path.join(result_dir, zfile.filename.replace("/","")))
         print(zfile.filename, "finished")
 
 if __name__ == "__main__":

@@ -3,6 +3,9 @@
 #
 # usage: ./lampeter_parser.py <Lampeter_txt.zip> <output_dir>
 #
+# SHA256 (Lampeter_txt.zip) = 2c6f644290e7cd1fac10c284fe149f16594ca047342bc34e077099f4ede74e01
+# MD5 (Lampeter_txt.zip) = e7ad33f4b2ab16a7affd05d1c0f9924a
+#
 ####################################
 
 import re

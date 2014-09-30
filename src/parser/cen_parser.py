@@ -3,8 +3,12 @@
 #
 # parser for the cen corpus
 # ! requires the system tool catdoc to be installed !
+# "apt-get install catdoc" for debian/ubuntu
 #
 # usage: ./cen_parser.py <cen.zip> <output_dir>
+#
+# SHA256 (cen.zip) = d902055d674918dd68033ceba12c955dc3e4f87d483a341860731ed18d0fed46
+# MD5 (cen.zip) = 5676c0c8d60f039e4e898b5124b94283
 #
 ####################################
 import os
@@ -12,6 +16,7 @@ import sys
 import re
 import string
 import zipfile
+from parser_helpers import *
 
 def parse_index_entry(index_entry):
    year = index_entry[:index_entry.index(', ')]
@@ -67,11 +72,6 @@ def get_index(index_string_from_catdoc):
 
 def dump_all_to_xml(index, cen_corpus_file, destination_directory):
    for filename, author, year, title in index:
-      xml_string = '<xml>\n'
-
-      xml_string += '   <author>' + author + '</author>\n'
-      xml_string += '   <year>' + year + '</year>\n'
-      xml_string += '   <title>' + title + '</title>\n'
 
       print('OPEN: ' + filename)
       #encoding? in "1881 a fair barbarian.txt"(3211): _naivet<E9>_
@@ -80,14 +80,11 @@ def dump_all_to_xml(index, cen_corpus_file, destination_directory):
       text_file.close()
       # why is string.punctuation encoded in iso8859_15?
       text = str(text).translate(dict.fromkeys(string.punctuation.encode('iso8859_15'), None))
-      xml_string += '   <text>\n'
-      xml_string +=  text.lower()
-      xml_string += '   </text>\n'
-      xml_string += '</xml>\n'
 
-      xml_file = open(destination_directory + '/' + re.sub(' ', '_', title) + '.xml', 'w')
-      xml_file.write(xml_string)
-
+      text = text.lower()
+      text = filter_for_xml(text)
+      xml = build_xml(year, author, title, text)
+      write_xml_to_file(xml, os.path.join(destination_directory, re.sub(' ', '_', title) + '.xml'))
 
 def main(corpus, result_dir):
    zf = zipfile.ZipFile(corpus)

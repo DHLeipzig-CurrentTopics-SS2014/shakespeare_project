@@ -3,6 +3,9 @@
 #
 # usage: ./clmet.py <clmet3_0.zip> <output_dir>
 #
+# SHA256 (clmet3_0.zip) = e84ecaca60513c267852d28a9dde2f60a5044d44a7b7c1c33f1397604bb0be19
+# MD5 (clmet3_0.zip) = 5357ef3a13b7502797fee0bb0edc2aec
+#
 ####################################
 
 from lxml import etree
@@ -10,6 +13,7 @@ from os import makedirs
 from os.path import join,exists
 import sys
 import zipfile
+from parser_helpers import *
 
 def main(corpus, result_dir):
     if not exists(result_dir): makedirs(result_dir)
@@ -23,19 +27,11 @@ def main(corpus, result_dir):
             year = xml.xpath("//date")[0].xpath("string()")
 
             text = xml.xpath("//text")[0].xpath("string()")
-            file = open(join(result_dir,e.filename.replace('/', '') + ".xml"),"w")
-            file.write("<xml>")
 
-            file.write("<author>"+author+"</author>");
-            file.write("<year>"+year+"</year>");
-            file.write("<title>"+title+"</title>")
+            xml = build_xml(year, author, title, text)
+            write_xml_to_file(xml, join(result_dir,e.filename.replace('/', '') + ".xml"))
 
-
-            file.write("<text>")
-            file.write(text)
-            file.write("</text>")
-            file.write("</xml>")
-            file.close()
+            print(e.filename, "finished")
 
 if __name__ == "__main__":
     main(sys.argv[1], sys.argv[2])
