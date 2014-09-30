@@ -1,5 +1,5 @@
-#LyX 2.0 created this file. For more info see http://www.lyx.org/
-\lyxformat 413
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
 \begin_document
 \begin_header
 \textclass article
@@ -12,13 +12,13 @@
 \font_roman default
 \font_sans default
 \font_typewriter default
+\font_math auto
 \font_default_family default
 \use_non_tex_fonts false
 \font_sc false
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
-
 \graphics default
 \default_output_format default
 \output_sync 0
@@ -29,15 +29,24 @@
 \use_hyperref false
 \papersize default
 \use_geometry false
-\use_amsmath 1
-\use_esint 1
-\use_mhchem 1
-\use_mathdots 1
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
 \cite_engine basic
+\cite_engine_type default
+\biblio_style plain
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
 \suppress_date false
+\justification true
 \use_refstyle 1
 \index Index
 \shortcut idx
@@ -254,15 +263,14 @@ Forschungsfragen
 \end_layout
 
 \begin_layout Standard
-Zu Beginn des Semesters haben wir uns Shakespeare als Thema für unser Projekt
- gewählt.
- Shakespeare erfand in seinen Texten eine Vielzahl neuer Wörter bzw.
- belegte bereits existierende Wörter mit neuen Bedeutungen.
- Als Schwerpunkt unseres Projektes wollten wir Untersuchen welchen Einfluss
- Shakespeare und seine Wortschöpfungen auf die Englische Sprache haben und
- in diesem Zusammenhang auch, welche dieser Wörter am häufigsten in englischen
- Texten genutzt wurden und welche Autoren sich am meisten von Shakespeare
- haben beeinflussen.
+Zu Beginn des Semesters wählten wid Shakespeare als Thema für unser Projekt.
+ Shakespeare erfand in seinen Texten eine Vielzahl neuer Wörter und belegte
+ bereits existierende Wörter mit neuen Bedeutungen.
+ Als Schwerpunkt unseres Projektes wollten wir untersuchen, welchen Einfluss
+ Shakespeare und seine Wortschöpfungen auf die englische Sprache haben,
+ sowie in diesem Zusammenhang auch erforschen, welche dieser Wörter am häufigste
+n in englischen Texten genutzt wurden und welche Autoren sich am meisten
+ von Shakespeare haben beeinflussen lassen.
  Zusammengefasst haben wir uns folgende Fragen gestellt:
 \end_layout
 
@@ -275,28 +283,28 @@ Welche Wörter von Shakespeare wurden am meisten verwendet?
 \end_layout
 
 \begin_layout Enumerate
-Welche Autoren nutzen die meisten Wörter Shakespears?
+Welche Autoren nutzen die meisten Wörter Shakespeares?
 \end_layout
 
 \begin_layout Enumerate
-In welchen Büchern wurden die meisten Shakespeare Wörter genutzt?
+In welchen Büchern wurden die meisten Shakespeare-Wörter genutzt?
 \end_layout
 
 \begin_layout Subsection
-Sammeln der Shakespeare Wörter
+Sammeln der Shakespeare-Wörter
 \end_layout
 
 \begin_layout Standard
-Um eine Sammlung von Shakespeare Wörtern zu erstellen planten wir zunächst
- einen Korpus bestehend aus Shakespears Texten mit Referenztexten aus dem
- selben Zeitraum (15.
+Um eine Sammlung von Shakespeare-Wörtern zu erstellen, planten wir zunächst
+ einen Korpus, bestehend aus Shakespears Texten, mit Referenztexten aus
+ dem selben Zeitraum (15.
  und 16.
  Jahrhundert) zu vergleichen, um so die von Shakespeare eingeführten Wörter
  zu erhalten.
- Letztendlich konnten wir diesen aufwendigen Prozess umgehen, in dem wir
+ Letztendlich konnten wir diesen aufwendigen Prozess umgehen, indem wir
  die Wörterdatenbank des Oxford English Dictionary (www.oed.com) nach Wörtern
- mit Bezug auf Shakespeare durchsuchten und so eine Sammlung von Shakespeare
- Wörtern erstellen konnten.
+ mit Bezug auf Shakespeare durchsuchten und so eine Sammlung von Shakespeare-Wör
+tern erstellen konnten.
  Da Shakespeare nicht nur Wörter, sondern auch Redewendungen in die englische
  Sprache einführte, wollten wir diese zunächst auch in unsere Betrachtung
  einfließen lassen.
@@ -313,16 +321,16 @@ Als Vergleichstexte für die weitere Betrachtung nutzen wir mehrere Korpora,
  aus den Jahren 1560 bis 1920.
  Ursprünglich wollten wir Projekt Gutenberg (gutenberg.org) und archive.org
  als Quellen für diese Texte zu nutzen.
- Nach genauerer Recherche haben wir uns aber dagegen entschieden, da viele
- Texte aus diesen Quellen nicht mit Erscheinungsjahren aufgelistet sind
- und daher für unsere Betrachtung ungeeignet sind.
- Stattdessen bezogen wir die von uns genutzten Korpera von KU Leuven (www.kuleuve
+ Nach genauerer Recherche entschieden wir uns jedoch dagegen, da viele Texte
+ dieser Quellen nicht mit Erscheinungsjahren aufgelistet und daher für unsere
+ Betrachtung ungeeignet sind.
+ Stattdessen bezogen wir die von uns genutzten Korpora von KU Leuven (www.kuleuve
 n.be) und University of Oxford Text Archive (www.ota.ahds.ac.uk).
- Insgesamt besteht unsere Korperasammlung aus
+ Insgesamt besteht unsere Korporasammlung aus
 \end_layout
 
 \begin_layout Itemize
-mehr als 900 Texte von über 400 Autoren
+mehr als 900 Texten von über 400 Autoren
 \end_layout
 
 \begin_layout Itemize
@@ -335,21 +343,22 @@ Entwicklung unseres Webservices
 
 \begin_layout Standard
 Während der Bearbeitung unserer Forschungsfragen mit Bezug auf Shakespeare
- haben wir uns entschieden einen allgemein einsetzbaren Webservice zu entwickeln
- und unsere Fragen als ein Anwendungsfall für diesen Webservice zu betrachten.
- So können wir unsere Fragen beantworten und gleichzeitig ein Service bieten,
- der unabhängig von Korpera und Wortliste ein Möglichkeit bietet ähnliche
- Fragen mit anderem Themenbezug zu beantworten.
+ haben wir uns entschieden, einen allgemein einsetzbaren Webservice zu entwickel
+n und unsere Fragen als einen Anwendungsfall für diesen Webservice zu betrachten.
+ So können wir unsere Fragen beantworten und gleichzeitig einen Service
+ bieten, der unabhängig von Korpora und Wortliste eine Möglichkeit bietet,
+ ähnliche Fragen mit anderem Themenbezug zu beantworten.
  Ähnlich wie Google Ngram Viewer (https://books.google.com/ngrams) soll hier
- die Relevanz der betrachteten Wörter über die Zeit angegeben werden, aber
- auch mehr Funktionalität geboten werden.
- Etwa lassen sich benutzerdefinierte Korpera verwenden und Fragen in Bezug
- auf andere Eigenschaften der Texte stellen, etwa in Bezug auf den Autor.
- In diesem Zusammenhang haben wir geplant, neben dem zeitlichen Verlauf,
- eine geografische Verteilung, mit Bezug auf Veröffentlichungsort und Geburtsort
- des Autors, zu visualisieren.
- Da wir hierfür aber keine hinreichende Datenquelle gefunden haben, haben
- wir diese Idee verworfen.
+ die Relevanz der betrachteten Wörter über die Zeit angegeben, aber auch
+ mehr Funktionalität geboten werden.
+ So lassen sich etwa benutzerdefinierte Korpora verwenden und Fragen in
+ Bezug auf andere Eigenschaften der Texte stellen, zum Beispiel bezüglich
+ des Autors.
+ In diesem Zusammenhang haben wir geplant, neben dem zeitlichen Verlauf
+ eine geografische Verteilung mit Bezug auf Veröffentlichungsort und Geburtsort
+ des Autors zu visualisieren.
+ Da wir hierfür aber keine hinreichende Datenquelle gefunden haben, verwarfen
+ wir diese Idee.
 \end_layout
 
 \begin_layout Subsubsection
@@ -357,11 +366,11 @@ Methodik
 \end_layout
 
 \begin_layout Standard
-Nachdem die zu untersuchenden Korpera in die Datenbank des Webservice geladen
+Nachdem die zu untersuchenden Korpora in die Datenbank des Webservice geladen
  wurden, lassen sich über eine Formularseite Textsammlungen anhand von Erscheinu
 ngsjahr, Autor und weiteren Eigenschaften erstellen und verschiedene Berechnunge
 n auf diesen durchführen.
- Zum einladen eines Korpus muss dieser mittels eines Parsers zunächst in
+ Zum Einladen eines Korpus muss dieser mittels eines Parsers zunächst in
  ein einheitliches Format gebracht werden.
  Zum Analyseren der Korpera nutzen wir die aus der Vorlesung bekannten Tf-idf
  und Worcount Text-Wort Matritzen.
