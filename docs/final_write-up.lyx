@@ -128,7 +128,7 @@ Django
 \end_layout
 
 \begin_layout Itemize
-Panadas
+Pandas
 \end_layout
 
 \begin_layout Itemize
@@ -216,19 +216,31 @@ python3 src/django/manage.py runserver
 
 \end_inset
 
-Falls nötig, muss die Datenbank vorher migriert werden.
- Notwendig ist es nur, wenn sich die Datenbankstruktur geändert hat, es
- erscheint in diesem Fall eine entsprechende Aufforderung beim Starten des
- Servers in der Konsole.
- Führen Sie dann folgenden Befehl aus.
+Vor dem ersten Start, muss die Datenbank migriert werden.
+ Notwendig ist es sonst nur, wenn sich die Datenbankstruktur geändert hat,
+ es erscheint in diesem Fall eine entsprechende Aufforderung beim Starten
+ des Servers in der Konsole.
+ Führen Sie dazu folgenden Befehl aus:
 \begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+python3 src/django/manage.py syncdb
+\end_layout
+
 \end_inset
 
 Anschließend ist der Webservice über 
 \emph on
 localhost:8000/corpora/corpora 
 \emph default
-erreichbar
+erreichbar.
 \begin_inset Newline newline
 \end_inset
 
@@ -331,7 +343,7 @@ Forschungsfragen
 \end_layout
 
 \begin_layout Standard
-Zu Beginn des Semesters wählten wid Shakespeare als Thema für unser Projekt.
+Zu Beginn des Semesters wählten wir Shakespeare als Thema für unser Projekt.
  Shakespeare erfand in seinen Texten eine Vielzahl neuer Wörter und belegte
  bereits existierende Wörter mit neuen Bedeutungen.
  Als Schwerpunkt unseres Projektes wollten wir untersuchen, welchen Einfluss
@@ -364,15 +376,30 @@ Sammeln der Shakespeare-Wörter
 
 \begin_layout Standard
 Um eine Sammlung von Shakespeare-Wörtern zu erstellen, planten wir zunächst
- einen Korpus, bestehend aus Shakespears Texten, mit Referenztexten aus
+ einen Korpus, bestehend aus Shakespeares Texten, mit Referenztexten aus
  dem selben Zeitraum (15.
  und 16.
  Jahrhundert) zu vergleichen, um so die von Shakespeare eingeführten Wörter
  zu erhalten.
  Letztendlich konnten wir diesen aufwendigen Prozess umgehen, indem wir
- die Wörterdatenbank des Oxford English Dictionary (www.oed.com) nach Wörtern
- mit Bezug auf Shakespeare durchsuchten und so eine Sammlung von Shakespeare-Wör
-tern erstellen konnten.
+ die Wörterdatenbank des Oxford English Dictionary
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.oed.com"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ nach Wörtern mit Bezug auf Shakespeare durchsuchten und so eine Sammlung
+ von Shakespeare-Wörtern erstellen konnten.
  Da Shakespeare nicht nur Wörter, sondern auch Redewendungen in die englische
  Sprache einführte, wollten wir diese zunächst auch in unsere Betrachtung
  einfließen lassen.
@@ -387,26 +414,186 @@ Korpus
 Als Vergleichstexte für die weitere Betrachtung nutzen wir mehrere Korpora,
  bestehend aus Texten, Briefen und schriftlich festgehaltenen Unterhaltungen
  aus den Jahren 1560 bis 1920.
- Ursprünglich wollten wir Projekt Gutenberg (gutenberg.org) und archive.org
- als Quellen für diese Texte zu nutzen.
+ Ursprünglich wollten wir Projekt Gutenberg
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+target "https://www.gutenberg.org"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ und archive.org als Quellen für diese Texte zu nutzen.
  Nach genauerer Recherche entschieden wir uns jedoch dagegen, da viele Texte
  dieser Quellen nicht mit Erscheinungsjahren aufgelistet und daher für unsere
  Betrachtung ungeeignet sind.
- Stattdessen bezogen wir die von uns genutzten Korpora von KU Leuven (www.kuleuve
-n.be) und University of Oxford Text Archive (www.ota.ahds.ac.uk).
- Insgesamt besteht unsere Korporasammlung aus
+ Ausserdem sind die Texte in Projekt Gutenberg nicht einheitlich formatiert,
+ sie haben sowohl vor, als auch nach dem Text Abschnitte, die den Text,
+ den Autor, eine Versionsgeschichte, Lizenzdetails, Anmerkungen der Projekt
+ Gutenberg Mitarbeiter, sowie andere verschiedene Informationen beschreiben.
+ Leider sind auch nicht Textautor, Jahr und Titel einheitlich gestaltet,
+ sodass jeder Text hätte einzeln manuell bearbeitet hätte werden müssen.
+ Stattdessen bezogen wir die von uns genutzten Korpora von der 
+\shape italic
+Katholieke Universiteit Leuven
+\shape default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+target "https://www.kuleuven.be"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ und dem 
+\shape italic
+University of Oxford Text Archive
+\shape default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.ota.ahds.ac.uk"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ Insgesamt besteht unsere Korporasammlung aus mehr als 900 Texten von über
+ 400 Autoren mit insgesamt mehr als 62 Milllionen Wörtern.
+ Die folgenden Korpora wurden gewählt, weil sie eine große Textanzahl haben
+ sowie in für uns interessanten Zeitabschnitten liegen:
 \end_layout
 
 \begin_layout Itemize
-mehr als 900 Texten von über 400 Autoren
+CLMET - The Corpus of Late Modern English Texts, version 3.0
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+target "https://perswww.kuleuven.be/~u0044428/clmet3_0.htm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
-mehr als 62 Milllionen Wörtern
+CEN - The Corpus of English Novels
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+target "https://perswww.kuleuven.be/~u0044428/cen.htm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The English language of the north-west in the late Modern English period:
+ a Corpus of late 18c Prose
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.ota.ahds.ac.uk/desc/2468"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+CED - A Corpus of English Dialogues 1560-1760
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.ota.ahds.ac.uk/desc/2507"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The Lampeter Corpus of Early Modern English Tracts
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.ota.ahds.ac.uk/desc/3193"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
 Entwicklung unseres Webservices
+\end_layout
+
+\begin_layout Subsubsection
+Grundidee
 \end_layout
 
 \begin_layout Standard
@@ -416,14 +603,45 @@ n und unsere Fragen als einen Anwendungsfall für diesen Webservice zu betrachte
  So können wir unsere Fragen beantworten und gleichzeitig einen Service
  bieten, der unabhängig von Korpora und Wortliste eine Möglichkeit bietet,
  ähnliche Fragen mit anderem Themenbezug zu beantworten.
- Ähnlich wie Google Ngram Viewer (https://books.google.com/ngrams) soll hier
- die Relevanz der betrachteten Wörter über die Zeit angegeben, aber auch
- mehr Funktionalität geboten werden.
- So lassen sich etwa benutzerdefinierte Korpora verwenden und Fragen in
- Bezug auf andere Eigenschaften der Texte stellen, zum Beispiel bezüglich
- des Autors.
- In diesem Zusammenhang haben wir geplant, neben dem zeitlichen Verlauf
- eine geografische Verteilung mit Bezug auf Veröffentlichungsort und Geburtsort
+ Ähnlich wie in Google Ngram Viewer
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+target "https://books.google.com/ngrams"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ soll hier die Relevanz der betrachteten Wörter über die Zeit angegeben,
+ aber auch mehr Funktionalität geboten werden.
+ So lassen sich etwa eigene Korpora verwenden und Fragen in Bezug auf andere
+ Eigenschaften der Texte stellen, zum Beispiel bezüglich des Autors.
+ Da Python sich in wissenschaftlicher Datenverarbeitung momentan durch Bibliothe
+ken wir 
+\family typewriter
+pandas
+\family default
+ und 
+\family typewriter
+scikit-learn
+\family default
+ einen Namen macht, ermöglicht die Verwendung dieser bekannten Pakete auch
+ Anderen einfach eigene Funktionen zu implementieren und dem Funktionsumfang
+ hinzuzufügen.
+ Mit einem Webservice wäre man dann auch in der Lage auf einfachem Weg interakti
+ve Ergebnisse der Öffentlichkeit zur Verfügung zu stellen.
+\end_layout
+
+\begin_layout Standard
+In diesem Zusammenhang haben wir geplant, neben dem zeitlichen Verlauf eine
+ geografische Verteilung mit Bezug auf Veröffentlichungsort und Geburtsort
  des Autors zu visualisieren.
  Da wir hierfür aber keine hinreichende Datenquelle gefunden haben, verwarfen
  wir diese Idee.
@@ -434,15 +652,56 @@ Methodik
 \end_layout
 
 \begin_layout Standard
-Nachdem die zu untersuchenden Korpora in die Datenbank des Webservice geladen
- wurden, lassen sich über eine Formularseite Textsammlungen anhand von Erscheinu
-ngsjahr, Autor und weiteren Eigenschaften erstellen und verschiedene Berechnunge
-n auf diesen durchführen.
- Zum Einladen eines Korpus muss dieser mittels eines Parsers zunächst in
- ein einheitliches Format gebracht werden.
- Zum Analysieren der Korpora nutzen wir die aus der Vorlesung bekannten
- Text-Wort-Matritzen mit Tf-idf- bzw.
- Wordcount-Werten.
+Um Komfortabel und mit benutzerdefinierten Bedingungen performant auf die
+ Korpora zugreifen zu können entschieden wir uns die Texte in einer Datenbank
+ zu hinterlegen.
+ Gleichzeitig wollten wir in der Lage sein auf einfache Art und Weise Ergebnisse
+ zu visualisieren.
+ Da ansprechende Visualisierungen momentan stark im Web verwendet werden
+ entschieden wir uns auch auf entsprechende JavaScript-Bibliotheken zu setzen
+ und mit einem Webframework zu arbeiten.
+ Als dritter Baustein war eine Bedingung die aus dem Seminar bekannten Text-Wort
+-Matrizen verwenden zu können beziehungsweise die 
+\family typewriter
+pandas
+\family default
+-Bibliothek und die TF-IDF funktionalität von 
+\family typewriter
+scikit-learn
+\family default
+.
+ Die Schnittstelle dieser Überlegungen erfüllt das Python-Webframework 
+\family typewriter
+django
+\family default
+ ideal.
+ Django abstrahiert komplexe SQL-Abfragen und versteckt sie hinter Python-Code.
+ So können zum Beispiel alle Texte nach Erscheinungsjahr sortiert, oder
+ gefiltert abgerufen werden.
+ 
+\end_layout
+
+\begin_layout Standard
+Da wir mehrere verschieden formatierte Korpora verwenden mussten wir dafür
+ sorgen, dass wir sie gleichartig in unser Datenmodell übertragen können.
+ Wie oben beschrieben haben wir dafür ein eigenes einfaches XML-Format entworfen
+ und Parser für die einzelnen Korpora geschrieben, die sie in das Format
+ umwandeln können.
+ Alternativ hätten wir Parser schreiben können, die jeden Korpus direkt
+ in die Datenbank einpflegen.
+ Da jedoch das interne Datenbankmodell komplexer ist als das XML-Format
+ konnten wir durch ein einheitliches Vorformat sicherstellen, dass alle
+ Texte auf gleichem Weg in die Datenbank überführt werden.
+\end_layout
+
+\begin_layout Standard
+Je nach Bedarf der durchzuführenden Rechnungen kann nun direkt auf den das
+ Datenmodell darstellenden Pythonobjekten gearbeitet werden oder zum Beispiel
+ 
+\family typewriter
+pandas-DataFrames
+\family default
+ verwendet werden.
 \end_layout
 
 \begin_layout Section
@@ -450,14 +709,60 @@ Probleme und Fehler
 \end_layout
 
 \begin_layout Standard
+Für uns alle sind Fragestellungen aus einem geisteswissenschaftlichen Gebiet
+ Neuland, es fiel uns schon zu Beginn schwer zu entscheiden, was wir für
+ Fragen an den Korpus stellen könnten, noch schwerer allerdings zu entscheiden,
+ wie sinnvoll diese sind und wie schwer zu beantworten.
+ Auch die verwendeten Technologien waren ziemlich neu für uns, so zum Beispiel
+ die vielfältigen Funktionen von 
+\family typewriter
+pandas
+\family default
+, oder die Visualisierung mit JavaScript.
+ So haben das Erlernen von und der Umgang mit Django, pandas und den anderen
+ Bibliotheken recht viel Zeit in anspruch genommen, zumal sich neue Probleme
+ immer wieder im Verlauf des Projektes zeigten.
+ Ein großes Problem ist nach wie vor die Performanz der Applikation.
+ Wir entschieden bewusst unsere Daten in einer Datenbank zu speichern, damit
+ wir nicht im Vorfeld jeder Berechnung die kompletten Datensätze neu einlesen
+ mussten.
+ Dabei mussten wir lernen, wie man mit den Daten performant umgehen kann.
+ Die Datenbank speichert die Modelle in ganz herkömlicher Art als Tabellen
+ mit Textfeldern, ein Abruf der Daten in die zugehörigen Pythonobjekte nimmt
+ jedoch viel Zeit in Anspruch.
+ So mussten wir möglichst viel Arbeit die Datenbank mit SQL-Anfragen erledigen
+ lassen und die gefilterten Daten möglichst als einfache Datentypen, wie
+ String und Listen verwenden.
+ 
+\end_layout
+
+\begin_layout Standard
+Wir unterschätzten ausserdem sehr den Aufwand, der zum Aufbau einer geeigneten
+ Datenbasis nötig ist.
+ Wie bereits beschrieben konnten wir nicht 
+\shape italic
+einfach
+\shape default
+ Projekt Gutenberg Texte verwenden, sondern mussten andere Korpora verwenden.
+ Dadurch, dass wir mehrere Korpora gleichzeitig verwenden und mangels Fachwissen
+ wenig Kontrolle über die enthaltenen Texte haben, sind unsere Ergebnisse
+ an Qualität sicher streitbar.
+ Ebendieser Aufwand führte auch dazu, dass wir die spannendste unserer Fragen
+ verwerfen mussten.
+ Eigentlich wollten wir geographisch nachverfolgen wie sich Wörter ausgebreitet
+ haben.
+ Lässt sich also im Verlauf der Zeit eine größer werdene Verbreitung eines
+ Wortes verfolgen? Dazu hätten wir Orte an denen die Autoren sich aufgehalten
+ haben mit Zeitspannen in den Daten haben müssen.
+ Diese Daten für die Autoren von Hand einzufügen wäre sehr Aufwändig gewesen,
+ noch schwerer allerdings sind die Daten zu bekommen, die Namen sind oft
+ nicht eindeutig.
+\end_layout
+
+\begin_layout Standard
 In der Visualisierung unserer Ergebnisse konnten wir aus Zeitgründen bis
  auf einfache Graphen und Tabellen leider keine weiteren Möglichkeiten implement
 ieren.
- Wie bereits angesprochen, wollten wir auch geografische Daten in unsere
- Analyse einfließen lassen und darauf aufbauend eine Weltkarte zur Visualisierun
-g anbieten.
- Da, wie bereits beschrieben, das Sammeln der geografischen Daten sehr schwierig
- ist, konnten wir diese Visualisierungsart leider auch nicht umsetzen.
 \end_layout
 
 \begin_layout Section
@@ -465,15 +770,16 @@ Vision unseres Projektes
 \end_layout
 
 \begin_layout Standard
-Mit unserem Webservice wollen wir eine Möglichkeit bieten, mit möglichst
- wenig Wissen über die Techniken und Methodiken Textkorpora computergestützt
- anhand selbst gewählter Wortlisten zu untersuchen.
+Mit unserem Webservice wollen wir eine Möglichkeit bieten, mit wenig Wissen
+ über die Techniken und Methodiken Textkorpora computergestützt anhand selbst
+ gewählter Wortlisten zu untersuchen.
  Dafür bietet sich der Browser als Interface gut an.
  Der Service lässt sich leicht mit eigenen Algorithmen zur Analyse erweitern
  und bietet so neben den bestehenden Verfahren die Möglichkeit, ihn nach
  den eigenen Bedürfnissen zu erweitern.
  Unser Service lässt sich sowohl lokal, als auch auf einem Webserver bereitstell
-en.
+en, also sowohl zum iterativen Erforschen für sich selbst, als auch als
+ Platform zur Präsentation seiner Ergebnisse.
 \begin_inset Newline newline
 \end_inset
 
@@ -481,8 +787,18 @@ Unsere Ergebnisse zeigen bereits, was mit dem Service möglich ist, allerdings
  sind unsere Ergebnisse zum Teil wenig aussagekräftig.
  An den Graphen ist erkennbar, dass in einigen Zeitabschnitten nur wenige
  Texte vorhanden sind, was unsere Ergebnisse verfälscht.
- Dies kann aber gelöst werden, indem wir mehr Korpora zur Analyse hinzuziehen,
- um so eine bessere Abdeckung der Zeitabschnitte zu gewährleisten.
+ Um dies zu Lösen muss man einen hochwertigen Korpus verwenden, der den
+ gewünschten Zeitraum in stabiler Qualität abbildet.
+ 
+\end_layout
+
+\begin_layout Standard
+Sowohl die Möglichkeit das Programm zu erweitern, als auch seine Ergebnisse
+ interaktiv darzustellen könnten die Textanalyse einer breiteren Masse auf
+ einfache weise zur Verfügung stellen.
+ Insbesondere ist auch die Verwendung eigener Korpora für eigene Fragen
+ interessant.
+ 
 \end_layout
 
 \end_body
