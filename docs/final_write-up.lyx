@@ -136,7 +136,7 @@ Numpy
 \end_layout
 
 \begin_layout Itemize
-Sklearn
+Scikit-Learn
 \end_layout
 
 \begin_layout Standard
@@ -201,7 +201,7 @@ Startanleitung
 Das Shakespeare Project läuft als Webservice, daher muss vor der Benutzung
  ein Webserver aufgesetzt werden.
  Django bietet in Python 3 einen eingebauten Testserver, der durch den unten
- stehenden Befehl gestartet werden kann.
+ stehenden Befehl gestartet werden kann:
 \end_layout
 
 \begin_layout Standard
@@ -220,11 +220,8 @@ Vor dem ersten Start, muss die Datenbank migriert werden.
  Notwendig ist es sonst nur, wenn sich die Datenbankstruktur geändert hat,
  es erscheint in diesem Fall eine entsprechende Aufforderung beim Starten
  des Servers in der Konsole.
- Führen Sie dazu folgenden Befehl aus:
-\begin_inset Newline newline
-\end_inset
-
-
+ Führen Sie dazu folgenden Befehl aus (der Server muss danach neu gestartet
+ werden):
 \begin_inset listings
 inline false
 status open
@@ -241,13 +238,9 @@ Anschließend ist der Webservice über
 localhost:8000/corpora/corpora 
 \emph default
 erreichbar.
-\begin_inset Newline newline
-\end_inset
+\end_layout
 
-
-\begin_inset Newline newline
-\end_inset
-
+\begin_layout Standard
 Für den Produktivbetrieb sollte der Testserver nicht verwendet werden.
  Stattdessen sollte ein Webserver (z.B.
  
@@ -259,16 +252,12 @@ oder
 nginx
 \emph default
 ) eingerichtet werden, der die Django-Funktionialitäten als Skript aufruft.
-\begin_inset Newline newline
-\end_inset
+\end_layout
 
-
-\begin_inset Newline newline
-\end_inset
-
+\begin_layout Standard
 Nun können die zu untersuchenden Korpora in die Datenbank geladen werden.
- Dazu sollten sie vorher in ein einheitliches, spezifisches Format übertragen
- werden.
+ Dazu sollten sie vorher in das folgende einheitliche Format übertragen
+ werden:
 \end_layout
 
 \begin_layout Standard
@@ -770,19 +759,6 @@ Vision unseres Projektes
 \end_layout
 
 \begin_layout Standard
-Mit unserem Webservice wollen wir eine Möglichkeit bieten, mit wenig Wissen
- über die Techniken und Methodiken Textkorpora computergestützt anhand selbst
- gewählter Wortlisten zu untersuchen.
- Dafür bietet sich der Browser als Interface gut an.
- Der Service lässt sich leicht mit eigenen Algorithmen zur Analyse erweitern
- und bietet so neben den bestehenden Verfahren die Möglichkeit, ihn nach
- den eigenen Bedürfnissen zu erweitern.
- Unser Service lässt sich sowohl lokal, als auch auf einem Webserver bereitstell
-en, also sowohl zum iterativen Erforschen für sich selbst, als auch als
- Platform zur Präsentation seiner Ergebnisse.
-\begin_inset Newline newline
-\end_inset
-
 Unsere Ergebnisse zeigen bereits, was mit dem Service möglich ist, allerdings
  sind unsere Ergebnisse zum Teil wenig aussagekräftig.
  An den Graphen ist erkennbar, dass in einigen Zeitabschnitten nur wenige
@@ -793,12 +769,49 @@ Unsere Ergebnisse zeigen bereits, was mit dem Service möglich ist, allerdings
 \end_layout
 
 \begin_layout Standard
-Sowohl die Möglichkeit das Programm zu erweitern, als auch seine Ergebnisse
- interaktiv darzustellen könnten die Textanalyse einer breiteren Masse auf
- einfache weise zur Verfügung stellen.
+Mit unserem Webservice wollen wir eine Möglichkeit bieten, mit wenig Wissen
+ über die Techniken und Methodiken Textkorpora computergestützt anhand selbst
+ gewählter Wortlisten zu untersuchen.
+ Dafür bietet sich der Browser als Interface gut an.
+ Der Service lässt sich leicht mit eigenen Algorithmen zur Analyse erweitern
+ und bietet so neben den bestehenden Verfahren die Möglichkeit, ihn nach
+ den eigenen Bedürfnissen zu erweitern.
+ Unser Service lässt sich sowohl lokal, als auch auf einem Webserver bereitstell
+en, also sowohl zum iterativen Erforschen für sich selbst, als auch als
+ Platform zur Präsentation seiner Ergebnisse.
  Insbesondere ist auch die Verwendung eigener Korpora für eigene Fragen
  interessant.
+\end_layout
+
+\begin_layout Standard
+Der Webserver erlaubt nicht nur Betrachtung der berechneten Ergebnisse,
+ es kann ebenso auch Textseiten geben, die die Forschung beschreiben und
+ analysieren.
+ Solche Möglichkeiten wissenschaftliche Ergebnisse in ansprechender und
+ leicht verfügbarer Form zur Verfügung zu stellen kann helfen die Arbeiten
+ leichter für Laien verständlich zu machen.
+ Die bisherige Praxis Artikel in Fachzeitschriften zu publizieren stellt
+ für Menschen ohne wissenschaftlichen Hintergrund, oder aus anderen Feldern
+ oft eine hohe Hürde dar.
+ Auch um Nachwuchs für spezielle Themengebiete zu begeistern kann der Service
+ hilfreich sein.
+ Momentan muss man seinen zur Berechnung verwendeten Korpus fest einstellen
+ und bekommt darauf Ergebnisse berechnet.
+ Analog zu dem Google NGram Viewer wäre es wünschenswert, wenn man die Daten
+ auch explorativ betrachten kann.
+ Beispielsweise während der Anzeige des Ergebnisses auf einen Zeitabschnitt
+ genauer eingehen, oder Gruppen von Texten zur Berechnung hinzufügen kann.
+ Auch verschiedene Textmengen miteinander vergleichen zu können scheint
+ eine interessante Erweiterung des Funktionsumfangs.
  
+\end_layout
+
+\begin_layout Standard
+Das Projekt bietet dementsprechend noch viel Raum für Weiterentwicklung,
+ sowohl auf inhaltlicher Seite, wo weitere Algorithmen implementiert werden
+ können, als auch in technischer Hinsicht, moderne Webtechnologien ausnutzend
+ um die Datenbetrachtung zu verbessern und interaktives Untersuchen zu ermöglich
+en.
 \end_layout
 
 \end_body
