@@ -3,13 +3,35 @@
 \begin_document
 \begin_header
 \textclass article
+\begin_preamble
+\usepackage{xcolor}
+\usepackage{listings}
+\definecolor{lightgray}{rgb}{0.9,0.9,0.9}
+
+\lstset{ %
+    backgroundcolor={\color{lightgray}},
+    basicstyle={\ttfamily},
+    tabsize=4,
+    breaklines=true
+}
+\let\oldenumerate=\enumerate
+\def\enumerate{
+\oldenumerate
+\setlength{\itemsep}{0pt}
+}
+\let\olditemize=\itemize
+\def\itemize{
+\olditemize
+\setlength{\itemsep}{0pt}
+}
+\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
 \language ngerman
 \language_package default
 \inputencoding auto
 \fontencoding global
-\font_roman default
+\font_roman libertine
 \font_sans default
 \font_typewriter default
 \font_math auto
@@ -25,7 +47,7 @@
 \bibtex_command default
 \index_command default
 \paperfontsize default
-\spacing single
+\spacing double
 \use_hyperref false
 \papersize default
 \use_geometry false
@@ -48,6 +70,7 @@
 \suppress_date false
 \justification true
 \use_refstyle 1
+\boxbgcolor #dedede
 \index Index
 \shortcut idx
 \color #008000
@@ -74,7 +97,7 @@ Shakespeare Projekt
 \end_layout
 
 \begin_layout Author
-Lukas Fischer, Lukas Kairies, Robert Terbach, Thomas Döring, Simon Vetter
+Thomas Döring, Lukas Fischer, Lukas Kairies, Robert Terbach, Simon Vetter
 \end_layout
 
 \begin_layout Standard
@@ -94,7 +117,7 @@ newpage
 \end_layout
 
 \begin_layout Section
-Installation- und Startanleitung
+Installations- und Startanleitung
 \end_layout
 
 \begin_layout Subsection*
@@ -125,18 +148,82 @@ Python 3 benötigt weiterhin folgende vier Erweiterungspakete:
 
 \begin_layout Itemize
 Django
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+target "https://www.djangoproject.com/"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
 Pandas
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+target "http://pandas.pydata.org/"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
 Numpy
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.numpy.org/"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
 Scikit-Learn
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+target "http://scikit-learn.org/"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -234,8 +321,11 @@ python3 src/django/manage.py syncdb
 \end_inset
 
 Anschließend ist der Webservice über 
+\family typewriter
+localhost:8000/corpora/corpora
+\family default
 \emph on
-localhost:8000/corpora/corpora 
+ 
 \emph default
 erreichbar.
 \end_layout
@@ -255,52 +345,61 @@ nginx
 \end_layout
 
 \begin_layout Standard
-Nun können die zu untersuchenden Korpora in die Datenbank geladen werden.
+Nun können die zu untersuchenden Corpora in die Datenbank geladen werden.
  Dazu sollten sie vorher in das folgende einheitliche Format übertragen
  werden:
 \end_layout
 
 \begin_layout Standard
 \begin_inset listings
+lstparams "language=XML"
 inline false
 status open
 
 \begin_layout Plain Layout
+\paragraph_spacing single
 
 <xml>
 \end_layout
 
 \begin_layout Plain Layout
+\paragraph_spacing single
 
    <author>...</author>
 \end_layout
 
 \begin_layout Plain Layout
+\paragraph_spacing single
 
    <year>...</year>
 \end_layout
 
 \begin_layout Plain Layout
+\paragraph_spacing single
 
    <title>...</title>
 \end_layout
 
 \begin_layout Plain Layout
+\paragraph_spacing single
 
    <text>
 \end_layout
 
 \begin_layout Plain Layout
+\paragraph_spacing single
 
       ...
 \end_layout
 
 \begin_layout Plain Layout
+\paragraph_spacing single
 
    </text>
 \end_layout
 
 \begin_layout Plain Layout
+\paragraph_spacing single
 
 </xml>
 \end_layout
@@ -308,19 +407,20 @@ status open
 \end_inset
 
 Um diese Arbeit nicht manuell durchführen zu müssen, stehen für die von
- uns genutzten Korporaquellen Parser bereit, mithilfe derer sie automatisch
+ uns genutzten Corporaquellen Parser bereit, mithilfe derer sie automatisch
  in dieses Format übertragen werden können.
  Die Parser liegen dem Projektarchiv bei.
  Durch das Hilfskript 
-\emph on
+\family typewriter
 parse_all.py
-\emph default
- werden alle unsere Korpora automatisch in das Format übertragen.
-\begin_inset Newline newline
-\end_inset
-
-Für den Upload der nun formatierten Korpora kann das Webinterface unter
- http://localhost:8000/corpora/corpora genutzt werden.
+\family default
+ werden alle unsere Corpora automatisch in das Format übertragen.
+ Für den Upload der nun formatierten Corpora kann das Webinterface unter
+ 
+\family typewriter
+http://localhost:8000/corpora/corpora
+\family default
+ genutzt werden.
 \end_layout
 
 \begin_layout Section
@@ -365,7 +465,7 @@ Sammeln der Shakespeare-Wörter
 
 \begin_layout Standard
 Um eine Sammlung von Shakespeare-Wörtern zu erstellen, planten wir zunächst
- einen Korpus, bestehend aus Shakespeares Texten, mit Referenztexten aus
+ einen Corpus, bestehend aus Shakespeares Texten, mit Referenztexten aus
  dem selben Zeitraum (15.
  und 16.
  Jahrhundert) zu vergleichen, um so die von Shakespeare eingeführten Wörter
@@ -396,11 +496,11 @@ target "http://www.oed.com"
 \end_layout
 
 \begin_layout Subsection
-Korpus
+Corpus
 \end_layout
 
 \begin_layout Standard
-Als Vergleichstexte für die weitere Betrachtung nutzen wir mehrere Korpora,
+Als Vergleichstexte für die weitere Betrachtung nutzen wir mehrere Corpora,
  bestehend aus Texten, Briefen und schriftlich festgehaltenen Unterhaltungen
  aus den Jahren 1560 bis 1920.
  Ursprünglich wollten wir Projekt Gutenberg
@@ -429,7 +529,7 @@ target "https://www.gutenberg.org"
  Gutenberg Mitarbeiter, sowie andere verschiedene Informationen beschreiben.
  Leider sind auch nicht Textautor, Jahr und Titel einheitlich gestaltet,
  sodass jeder Text hätte einzeln manuell bearbeitet hätte werden müssen.
- Stattdessen bezogen wir die von uns genutzten Korpora von der 
+ Stattdessen bezogen wir die von uns genutzten Corpora von der 
 \shape italic
 Katholieke Universiteit Leuven
 \shape default
@@ -470,9 +570,9 @@ target "http://www.ota.ahds.ac.uk"
 \end_inset
 
 .
- Insgesamt besteht unsere Korporasammlung aus mehr als 900 Texten von über
+ Insgesamt besteht unsere Corporasammlung aus mehr als 900 Texten von über
  400 Autoren mit insgesamt mehr als 62 Milllionen Wörtern.
- Die folgenden Korpora wurden gewählt, weil sie eine große Textanzahl haben
+ Die folgenden Corpora wurden gewählt, weil sie eine große Textanzahl haben
  sowie in für uns interessanten Zeitabschnitten liegen:
 \end_layout
 
@@ -590,7 +690,7 @@ Während der Bearbeitung unserer Forschungsfragen mit Bezug auf Shakespeare
  haben wir uns entschieden, einen allgemein einsetzbaren Webservice zu entwickel
 n und unsere Fragen als einen Anwendungsfall für diesen Webservice zu betrachten.
  So können wir unsere Fragen beantworten und gleichzeitig einen Service
- bieten, der unabhängig von Korpora und Wortliste eine Möglichkeit bietet,
+ bieten, der unabhängig von Corpora und Wortliste eine Möglichkeit bietet,
  ähnliche Fragen mit anderem Themenbezug zu beantworten.
  Ähnlich wie in Google Ngram Viewer
 \begin_inset Foot
@@ -610,7 +710,7 @@ target "https://books.google.com/ngrams"
 
  soll hier die Relevanz der betrachteten Wörter über die Zeit angegeben,
  aber auch mehr Funktionalität geboten werden.
- So lassen sich etwa eigene Korpora verwenden und Fragen in Bezug auf andere
+ So lassen sich etwa eigene Corpora verwenden und Fragen in Bezug auf andere
  Eigenschaften der Texte stellen, zum Beispiel bezüglich des Autors.
  Da Python sich in wissenschaftlicher Datenverarbeitung momentan durch Bibliothe
 ken wir 
@@ -642,7 +742,7 @@ Methodik
 
 \begin_layout Standard
 Um Komfortabel und mit benutzerdefinierten Bedingungen performant auf die
- Korpora zugreifen zu können entschieden wir uns die Texte in einer Datenbank
+ Corpora zugreifen zu können entschieden wir uns die Texte in einer Datenbank
  zu hinterlegen.
  Gleichzeitig wollten wir in der Lage sein auf einfache Art und Weise Ergebnisse
  zu visualisieren.
@@ -671,12 +771,12 @@ django
 \end_layout
 
 \begin_layout Standard
-Da wir mehrere verschieden formatierte Korpora verwenden mussten wir dafür
+Da wir mehrere verschieden formatierte Corpora verwenden mussten wir dafür
  sorgen, dass wir sie gleichartig in unser Datenmodell übertragen können.
  Wie oben beschrieben haben wir dafür ein eigenes einfaches XML-Format entworfen
- und Parser für die einzelnen Korpora geschrieben, die sie in das Format
+ und Parser für die einzelnen Corpora geschrieben, die sie in das Format
  umwandeln können.
- Alternativ hätten wir Parser schreiben können, die jeden Korpus direkt
+ Alternativ hätten wir Parser schreiben können, die jeden Corpus direkt
  in die Datenbank einpflegen.
  Da jedoch das interne Datenbankmodell komplexer ist als das XML-Format
  konnten wir durch ein einheitliches Vorformat sicherstellen, dass alle
@@ -700,7 +800,7 @@ Probleme und Fehler
 \begin_layout Standard
 Für uns alle sind Fragestellungen aus einem geisteswissenschaftlichen Gebiet
  Neuland, es fiel uns schon zu Beginn schwer zu entscheiden, was wir für
- Fragen an den Korpus stellen könnten, noch schwerer allerdings zu entscheiden,
+ Fragen an den Corpus stellen könnten, noch schwerer allerdings zu entscheiden,
  wie sinnvoll diese sind und wie schwer zu beantworten.
  Auch die verwendeten Technologien waren ziemlich neu für uns, so zum Beispiel
  die vielfältigen Funktionen von 
@@ -732,8 +832,8 @@ Wir unterschätzten ausserdem sehr den Aufwand, der zum Aufbau einer geeigneten
 \shape italic
 einfach
 \shape default
- Projekt Gutenberg Texte verwenden, sondern mussten andere Korpora verwenden.
- Dadurch, dass wir mehrere Korpora gleichzeitig verwenden und mangels Fachwissen
+ Projekt Gutenberg Texte verwenden, sondern mussten andere Corpora verwenden.
+ Dadurch, dass wir mehrere Corpora gleichzeitig verwenden und mangels Fachwissen
  wenig Kontrolle über die enthaltenen Texte haben, sind unsere Ergebnisse
  an Qualität sicher streitbar.
  Ebendieser Aufwand führte auch dazu, dass wir die spannendste unserer Fragen
@@ -763,14 +863,14 @@ Unsere Ergebnisse zeigen bereits, was mit dem Service möglich ist, allerdings
  sind unsere Ergebnisse zum Teil wenig aussagekräftig.
  An den Graphen ist erkennbar, dass in einigen Zeitabschnitten nur wenige
  Texte vorhanden sind, was unsere Ergebnisse verfälscht.
- Um dies zu Lösen muss man einen hochwertigen Korpus verwenden, der den
+ Um dies zu Lösen muss man einen hochwertigen Corpus verwenden, der den
  gewünschten Zeitraum in stabiler Qualität abbildet.
  
 \end_layout
 
 \begin_layout Standard
 Mit unserem Webservice wollen wir eine Möglichkeit bieten, mit wenig Wissen
- über die Techniken und Methodiken Textkorpora computergestützt anhand selbst
+ über die Techniken und Methodiken TextCorpora computergestützt anhand selbst
  gewählter Wortlisten zu untersuchen.
  Dafür bietet sich der Browser als Interface gut an.
  Der Service lässt sich leicht mit eigenen Algorithmen zur Analyse erweitern
@@ -779,7 +879,7 @@ Mit unserem Webservice wollen wir eine Möglichkeit bieten, mit wenig Wissen
  Unser Service lässt sich sowohl lokal, als auch auf einem Webserver bereitstell
 en, also sowohl zum iterativen Erforschen für sich selbst, als auch als
  Platform zur Präsentation seiner Ergebnisse.
- Insbesondere ist auch die Verwendung eigener Korpora für eigene Fragen
+ Insbesondere ist auch die Verwendung eigener Corpora für eigene Fragen
  interessant.
 \end_layout
 
@@ -795,7 +895,7 @@ Der Webserver erlaubt nicht nur Betrachtung der berechneten Ergebnisse,
  oft eine hohe Hürde dar.
  Auch um Nachwuchs für spezielle Themengebiete zu begeistern kann der Service
  hilfreich sein.
- Momentan muss man seinen zur Berechnung verwendeten Korpus fest einstellen
+ Momentan muss man seinen zur Berechnung verwendeten Corpus fest einstellen
  und bekommt darauf Ergebnisse berechnet.
  Analog zu dem Google NGram Viewer wäre es wünschenswert, wenn man die Daten
  auch explorativ betrachten kann.
